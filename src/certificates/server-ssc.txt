@@ -1,0 +1,24 @@
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+
+[dn]
+C=AR
+ST=Bogota
+L=Bogota
+O=Brandlive
+OU=Desarrollo
+emailAddress=soporteti@brandlive.co
+CN=tuissco.vtexlocal.com.br
+
+[req_ext]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = tuissco.vtexlocal.com.br
+DNS.2 = *.tuissco.vtexlocal.com.br
+DNS.3 = tuissco.vtexcommercestable.com.br
+DNS.4 = *.tuissco.vtexcommercestable.com.br

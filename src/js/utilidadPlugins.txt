@@ -1,0 +1,858 @@
+/** Listados de Plugin utilidad desarrollo Brandlive
+ * Creado por Victor Garcia
+ * 10 marzo de 2021
+ */
+
+/** Plugin visualizacion carga Tasa Usura
+ * Requeridos 
+ * JQUERY
+ * Creacion entidad Masterdata
+ * --Campos Masterdata: 
+ *      cuotas(Integer), rango_inicial(Long), rango_tope(Long), tasa_interes(Varchar100)
+ *      deben de quedar con permisos de busqueda y lectura no pueden ser null y no se deben poder modificar sin credenciales
+*/
+(function($){
+    $.FLTASAUSURA= function(options){
+        /** Parametros default */
+        var defaults= {
+            url: '/api/dataentities/__DATA_ENTITY__/search',
+            headers: {//cabeceras servicios masterdata
+                "Accept": "application/vnd.vtex.ds.v10+json",
+                "Content-Type": "application/json",
+                'Rest-Range': 'resources=0-60'
+            },
+            tasasUsuara: [],// Array parametros tasa usura se llena automaticament por masterdata
+            getTasasUsuara: true, // si esta en true realiza peticion a masterdata para obtener valores y si es false se pueden enviar manualmente las tasas en tasasUsuara:[]
+            dataEntity: 'TU',//Entidad masterdata donde estan las tasas de Usura
+            elementPorcent: '.item__showcase_new__destaques__descuentos__perce',//elemento html tag porcentaje de descuento vtex
+            cardItem: '.item__showcase', //Paleta producto vtex
+            elementPriceItem: '.item__showcase_new__price-bestr', //Elemento donde se carga valor del producto ofrecido
+            elementSectionTasaUsura: '.item__showcase__dues', //Elemento donde se cargan los calculos de tasa usura
+            elementSetCuotas: '.item__showcase__due__nInstall', //Elemento Carga del calculo cuotas
+            elementSetCuotasPrice: '.item__showcase__due__price', //Elemento Carga del calculo cuotas precio cuota
+            decimalesCuotas: 0, //Numero decimales numero cuotas
+            decimalesCuotasPrice: 0, //Elemento Carga del calculo cuotas precio cuota
+            /**
+             * acciones activacion precio direfencial vtex
+             */
+            elementPriceDirefencial: '.item__showcase__dues p',// Elemento carga precio direfencial
+            elementGetDataGetSkuid: 'article.item__showcase_new', // Elemento donde se encientra el data con el id sku
+            nameDataSkuid: 'id', // nombre de data en el elemento que tiene el skuid 'data-id="{{skuid}}"'
+            activePriceDiferencial: false, // Valida que el precio diferencial se encuentre activo
+            configAjaxDiferencial:{// Configuracion ajax consulta price diferencial valirable skuid {!skuid}
+                url: 'https://soat-flamingo.apps-brandlive.co/getDiferencialSku',
+                type: "POST",
+                headers: {
+                    "accept": "application/json",
+                    "Authorization": "469355200cdaa29acf2f4943f19b02ae"
+                },
+                timeout: 0,
+                dataType: 'json',
+                data: {"skuId":''}
+            },
+            fieldDiferencial: 'diferencial',
+            getSkuPorApiProduct: false,// Obtener id sku por id producto 
+            contenAfterDiferencial: '',// contenido despues del precio diferencial
+            contenBeforeDiferencial:'',// contenido antes del precio diferencial
+        };
+        var t = this,
+            settings = $.extend({}, defaults, options || {});
+        //iniciar carga plugin
+        var init= function() {
+            $(document).ready(function(){
+                t.porcentItemPaleta();
+            });
+        }
+
+        /** Ajustar porcentajes Mefia */
+        t.porcentItemPaleta= function() {    
+            if(settings.getTasasUsuara == true){
+                t.setTasaUsuara();
+            }else{
+                t.ocultarItemSinOferta();
+                $(document).find(settings.elementPorcent).each(function (i) {
+                    $(this).find('p').each(function(){
+                        if(!$(this).hasClass('flag')){
+                            if ($(this).text() == '0') {
+                                $(this).fadeOut();
+                            }else{
+                                if ($(this).text().trim().indexOf('%') > -1) {
+                                    $(this).addClass('porcents');
+                                    var valor = $(this).text().trim();
+                                    valor = valor.replace(/\,.*/g, '');
+                                    valor = valor.replace(/%/g, '');
+                                    $(this).text(valor+'%');
+                                } 
+                            }
+                        }
+                    });
+                });
+            }
+
+            if(settings.activePriceDiferencial == true){
+                t.startPriceDiferencial();
+            }
+        }
+        /** Setear tasa de Usura */
+        t.setTasaUsuara= function(){
+            t.getTasaUsuraMefia().then(function(dataTasaUsura){
+                settings.tasasUsuara= dataTasaUsura;
+                settings.getTasasUsuara = false;
+                t.porcentItemPaleta(); 
+            });
+        }
+        /** Obtener calculo tarifas mefia
+         * Se debe tener creada entidad en master data entities TU 
+         */
+        t.getTasaUsuraMefia= function(){ 
+            return $.ajax({
+                url: settings.url.replace('__DATA_ENTITY__', settings.dataEntity),
+                type: "GET",
+                headers: settings.headers,
+                timeout: 0,
+                dataType: 'json',
+                data: {
+                    _fields: "cuotas,rango_inicial,rango_tope,tasa_interes"
+                }
+            }).done(function (result) {
+                return result;
+            }).fail(function (result) {
+                return {error:result};
+            });           
+        }
+        /** Ocultar sin oferta y setear tasa de usuara */
+        t.ocultarItemSinOferta= function(){
+            $(document).find(settings.cardItem).each(function(){
+                if ($(this).find(settings.elementPriceItem).length > 0) {
+                    var _priceText = $(this).find(settings.elementPriceItem).text().replace(/\./g, "").replace('$', ''),
+                        cuotasT=0, priceT=0;
+                    /**Setear variables de cuotas y valor tasa usura */
+                    $.each(settings.tasasUsuara, function(tasaKey, tasaValue){
+                        if(parseFloat(tasaValue.rango_tope)==0 && parseFloat(_priceText) > parseFloat(tasaValue.rango_inicial)){
+                            cuotasT= tasaValue.cuotas; 
+                            priceT= parseFloat(_priceText)*parseFloat(tasaValue.tasa_interes);
+                        }else if(parseFloat(_priceText) > parseFloat(tasaValue.rango_inicial) && parseFloat(_priceText) < parseFloat(tasaValue.rango_tope)){
+                            cuotasT= tasaValue.cuotas; 
+                            priceT= parseFloat(_priceText)*parseFloat(tasaValue.tasa_interes);
+                        }
+                    });
+                    
+                    $(this).find(settings.elementSetCuotas).html(t.currency(cuotasT,settings.decimalesCuotas,',','.'));
+                    $(this).find(settings.elementSetCuotasPrice).html('$' + t.currency((priceT),settings.decimalesCuotasPrice,',','.'));
+                    $(this).find(settings.elementSectionTasaUsura).fadeIn();
+                } else {
+                    $(this).find(settings.elementSectionTasaUsura).fadeOut();
+                }
+            });
+        }
+        /** Formatear numero Paleteria */
+        t.currency= function (amount, decimalCont, decimalT, thousandsT) {
+            var decimalCount =decimalCont;
+            var decimal = decimalT ? decimalT : ",";
+            var thousands = thousandsT ? thousandsT : ".";
+            
+            try {
+              decimalCount = Math.abs(decimalCount);
+              decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+      
+              var negativeSign = amount < 0 ? "-" : "";
+      
+              var i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+              var j = i.length > 3 ? i.length % 3 : 0;
+      
+              return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+            } catch (e) {
+              //console.log(e)
+            }
+        }
+        /** Metodo iniciar carga price diferencial */
+        t.startPriceDiferencial= function(){
+            if($(document).find(settings.elementPriceDirefencial).length > 0){
+               $.each($(document).find(settings.elementPriceDirefencial), function(){
+                    if(settings.getSkuPorApiProduct== true){
+                        var productId= $(this).parents(settings.elementGetDataGetSkuid).data(settings.nameDataSkuid);
+                        $(this).fadeOut();
+                        t.getInfoProduct(productId, $(this));
+                    }else{
+                        var skuIdTT= $(this).parents(settings.elementGetDataGetSkuid).data(settings.nameDataSkuid);
+                        t.getDiferencialSku(skuIdTT, $(this));
+                    }
+               }); 
+            }
+        };
+        /** Metodo obtener diferencial por sku */
+        t.getDiferencialSku= function(sku, elementPadre){
+            var confAjaxTT= '';
+            confAjaxTT= settings.configAjaxDiferencial;
+            var urlTT= confAjaxTT.url,
+            dataTT= confAjaxTT.data.skuId;
+            urlTT= urlTT.replace('{!skuid}',sku);
+            dataTT= sku;
+            confAjaxTT.url=urlTT;
+            confAjaxTT.data.skuId= dataTT;
+            $.ajax(confAjaxTT).done(function (result) { 
+                if(result){
+                    t.setDataDiferencial(result, elementPadre); 
+                }else{
+                    $(elementPadre).fadeIn();
+                }
+            }).fail(function (result) {
+                $(elementPadre).fadeIn();
+                return {error:result};
+            });
+        };
+        /** set Data Deiferencial */
+        t.setDataDiferencial= function(priceDirefencial, elementPadre){
+            var diferencialValor=0;
+            if(!priceDirefencial.fixedPrices || typeof priceDirefencial.fixedPrices == 'object'){return;}
+            $.each(priceDirefencial.fixedPrices, function(key, value) {
+                if(value.tradePolicyId == settings.fieldDiferencial){
+                    diferencialValor= value.value;
+                }
+            });
+            if(diferencialValor > 0){
+                elementPadre.html(settings.contenBeforeDiferencial+'$'+t.currency(diferencialValor,settings.decimalesCuotas,',','.')+settings.contenAfterDiferencial);
+            }
+        };
+        /** Metodo set Informacion Producto */
+        t.getInfoProduct= function(id, elementPadre){
+            $.ajax({
+                url: '/api/catalog_system/pub/products/search/?fq=productId:' + id,
+                type: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "cache-control": "no-cache"
+                },
+                timeout: 0,
+                dataType: 'json',
+                data: {}
+            }).done(function (result) { 
+                $(elementPadre).fadeIn();
+                if(typeof result=='object' && result.length > 0){
+                    if(result[0].items[0].itemId){ 
+                        t.getDiferencialSku(result[0].items[0].itemId, elementPadre);
+                    }
+                }
+            }).fail(function (result) {
+                $(elementPadre).fadeIn();
+                console.log({error:result});
+            });
+        };
+        init();
+        return t;
+    }
+
+})(jQuery);
+
+/* 
+* Plugin para cargar informacion en masterdata
+* Creado por Victor Garcia
+* Brandlive Colombia
+*/
+(function ($) { 
+    /** Parametros default */
+    var settingsDefault= {
+        url: '/api/dataentities/__DATA_ENTITY__/documents',
+        headers: {//cabeceras servicios masterdata
+            "Accept": "application/vnd.vtex.ds.v10+json",
+            "Content-Type": "application/json"
+        },
+		idForm: '',
+		urlGracias: '', //opcional activarPlantilla debe estar en false
+		datosForm: {}, /// este parametro se llena automaticamente con los input del form
+		activarPlantilla: false, //opcional
+		plantillaHtml: '', //plantilla html personalizada Opcional
+		dataEntity: '', //data entity Opcional
+		rutaFile: '',
+		listaFiles: [],//Ingresa el name del archivo el el formulario 
+		timeout: 2000, //Tiempo espera recarga pagina
+		reload: false, // recarga pagina despues de guardar en masterdata
+		popup: {habilitar:false, idModal:''},// Habre un popup bootstrap se invia id del elemento
+		functionRes: '',// retorna informacion respuesta a una funcion especifica function mifuncion(res){}
+        callback: (res)=>{},//funcion retorno
+    };
+        
+    $.FORM_MASTERDATA= function(options){
+        var tmpThis = this;
+        var settings = $.extend({}, settingsDefault, options || {});
+
+        // Inicio funciones generales plugin
+        var init= () => {
+            $(settings.idForm).submit(function(e){
+    			e.preventDefault();
+    			$(settings.idForm).find('button[type="submit"]').remove();
+				tmpThis.crearContacto();
+			});
+        };
+        // Metodo para inciar creacion contanto Master Data
+        tmpThis.crearContacto= function(){
+			if($.isEmptyObject(settings.datosForm)){
+				var datosForm= $(settings.idForm).serialize();	
+				datosForm= this.getVariables(datosForm);
+				// datosForm.tyc= datosForm.tyc != undefined ? true : false;
+				settings.datosForm= datosForm;
+			}
+
+			settings.url= settings.url.replace('__DATA_ENTITY__',settings.dataEntity);
+
+			this.subirDatoMasterData();
+        }
+        
+        tmpThis.getVariables= function(getString){
+			var GET = getString.split('&');
+	        var get = {};
+	        // recorremos todo el array de valores
+	        for(var i = 0, l = GET.length; i < l; i++){
+	            var tmp = GET[i].split('=');
+	            get[tmp[0]] = unescape(decodeURI(tmp[1]));
+	            get[tmp[0]]= get[tmp[0]].replace(/\+/g,' ');
+	        }
+	        return get;
+        };
+        
+		tmpThis.subirDatoMasterData= function(){
+			$.ajax({
+                headers: settings.headers,
+                data: JSON.stringify(settings.datosForm),//JSON.stringify(),
+                type: 'PATCH',
+                url: settings.url,
+				success: function(data, textStatus, xhr){
+					if (xhr.status == "200" || xhr.status == "201") {
+						tmpThis.subirFileMasterData(data);
+						if(settings.reload){
+							setTimeout(function(){
+								location.reload();
+							},1000)
+						}
+						if(settings.functionRes && settings.functionRes != undefined && settings.functionRes != ''){
+							window[settings.functionRes](data);
+						}
+                        settings.callback(data);
+					}
+				},
+				error: function (data) {
+				  console.log(data);
+				}
+			});
+        };
+        
+		tmpThis.subirFileMasterData= function(data){
+			var cantidadArchivos= settings.listaFiles.length;
+		
+			if(cantidadArchivos == 0){
+				if(settings.urlGracias != '' && settings.urlGracias != undefined && settings.activarPlantilla==false){
+					window.location.href = settings.urlGracias;
+				}else{
+					if(settings.popup.habilitar==true){
+						$("#"+settings.popup.idModal).modal('show');
+					}else{
+						tmpThis.plantillaGracias();
+					}
+				}
+				$(settings.idForm)[0].reset();
+				return;
+			}
+			
+			var elementoForm= $(settings.idForm);
+			$.each(settings.listaFiles, function(k,v){
+				var file = '';
+				file = elementoForm.find('input[name="'+v+'"]').prop('files')[0];
+				var dataFile='';
+				dataFile = new FormData();
+            	dataFile.append(v, file);
+				
+				var urlCOFile = '';
+				urlCOFile = settings.url+"/" + data.DocumentId + "/"+v+"/attachments";
+
+				$.ajax({
+	                data: dataFile,
+	                type: 'POST',
+	                url: urlCOFile,
+	                cache: false,
+	                enctype: 'multipart/form-data',
+	                contentType: false,
+	                processData: false,   
+	                success: function(data) {
+		                if(k==(cantidadArchivos-1)){
+							if(settings.urlGracias != '' && settings.urlGracias != undefined && settings.activarPlantilla==false){
+								window.location.href = settings.urlGracias;
+							}else{
+								$(settings.idForm)[0].reset();
+								if(settings.popup.habilitar==true){
+									$("#"+settings.popup.idModal).modal('show');
+								}else{
+									tmpThis.plantillaGracias();
+								}
+							}
+		                }
+	                },
+	                error: function(data) {
+	                    console.log(data);  
+	                }
+	            });
+			});
+        };
+        
+		tmpThis.plantillaGracias= function(){
+			// plantilla por defecto
+			var html='<div class="success_ok">'+
+						'<h3 class="_tt">¡GRACIAS POR SUSCRIBIRTE!</h3>'+
+						'<h6>Tus datos se guardaron exitosamente.</h6>'+
+					'</div>';
+			if(settings.plantillaHtml != undefined && settings.plantillaHtml != ''){
+				html= settings.plantillaHtml;
+			}
+			$(settings.idForm).html(html);
+		};
+
+        init(); // Se inicia script masterData
+    }
+
+})(jQuery);
+
+/* 
+* Plugin para iniciar popup Compra Rapida
+* Creado por Victor Garcia
+* Brandlive Colombia
+*/
+(function ($) {
+    /** Parametros default */
+    var defaults= {
+        elementActive: '.item__showcase_new__buy a',//Elemento activador QuickView card item product vtex
+        idVistaVtexProd: 'eb84d761-69c2-4ac4-b544-1169a0deebe8',//Id vista vtex ambiente Produccion
+        idVistaVtexQA: '92766ad0-dbec-4223-bd71-9c4591c58dbf', //Id vista vtex ambiente QA
+        ambienteProductivo: false, //Activacion ambiente productivo
+        containerQuickview: '.containerQuickview', //Elemento contenedor iframe compra rapida
+        callback: ()=>{}, //function callback despuede de cerrar iframe
+    };
+    $.COMPRARAPIDA= function(options){
+        var t = this,
+            settings = $.extend({}, defaults, options || {});
+        //iniciar carga plugin
+        var init= () => {
+            $(document).ready(function(){
+                t.openQuickview();
+            });
+        }
+
+        /** Abrir Compra rapida */
+        t.openQuickview= function() {
+            var idVistaVtex='';
+            idVistaVtex= settings.idVistaVtexQA;
+            if(settings.ambienteProductivo==true){
+                idVistaVtex= settings.idVistaVtexProd;
+            }
+            $(document).find(settings.elementActive).each(function (key, value) {
+                $(this).on('click', function (e) {
+                    e.preventDefault();
+                    var href = e.target.href;
+                    if (href) {
+                        href = href + "?lid="+idVistaVtex+'&iframe=true';
+                        $(document).find(settings.containerQuickview).addClass('active');
+                        $(document).find(settings.containerQuickview).html('');
+                        $(document).find(settings.containerQuickview).html(`<div class="content-iframe"><button class="closeQuickviewButton"></button><iframe style="width:100%; height:100%" src="${href}"></iframe><div>`);
+                        t.closeQuick();
+                    }
+                });
+            });
+        }
+        /** Cerrar Compra rapida */
+        t.closeQuick= function() {
+            if ($(document).find('.closeQuickviewButton').length > 0) {
+                $(document).on('click', '.closeQuickviewButton', function (e) {
+                    settings.callback();
+                    $(document).find(settings.containerQuickview).removeClass('active');
+                });
+            }
+        }
+        init();
+    }
+})(jQuery);
+
+/* 
+* Plugin para cargar banners de un contentPlaceHoder Tipo Banner En Categorias y departamentos
+* Creado por Victor Garcia
+* Brandlive Colombia
+*/
+(function ($) {
+    var settingsDefault= {
+		elementInsertAfter: '.section-result-product-content .cardProductNew .cardProductNew ul',//Clase elemento item de una lista de productos
+		frecuencia: 6, //Frecuencia items para insertar banners
+        clase: 'bannerCategoria', //Clase seccion banner
+        contentBanner: '#bannersBusquedaAleatoria .box-banner',//Seccion donde estan los banners a visualizar el la busqueda de categorias
+        infinito: true, //Carga los banner de forma infinita en la frecuencia establecida
+    }
+        
+    $.LOADBANNERCATEGORY= function(options){
+        var t = this;
+        var settings = $.extend({}, settingsDefault, options || {});
+
+        // Inicio funciones generales plugin
+        var init= () => {
+            $(document).ready(function(e){
+                t.cargarBannersCategory();
+			});
+        };
+        /** Iniciar carga banner caregoria */
+        t.cargarBannersCategory= function(){
+            var cantItems= $(document).find(settings.elementInsertAfter).length;
+            var cantBanners= $(document).find(settings.contentBanner).length;
+            var countBanner=0;
+            var positionBanner= settings.frecuencia;
+            $(document).find('.section-banner-categoty-fl').remove();
+            $(document).find(settings.elementInsertAfter).each(function(key, value){
+                if(parseFloat(countBanner) < parseFloat(cantBanners)){
+                    if(key == (parseFloat(positionBanner)-1)){
+                        positionBanner= parseFloat(positionBanner) + parseFloat(settings.frecuencia);
+                        $(this).after(`<div class="${settings.clase} section-banner-categoty-fl">${$(document).find(settings.contentBanner).eq(countBanner).html()}</div>`);
+                        countBanner++;
+                    }
+                }else if(settings.infinito==true){
+                    countBanner=0;
+                }
+            });
+        };
+        init();
+    }
+})(jQuery);
+
+/* 
+* Plugin para crear minicart VTEX OrderForm
+* Creado por Victor Garcia
+* Brandlive Colombia
+* Para Crear un loop lo hacemos sobre un elemento HTML
+* <div class="minicart__items-cont" data-loop="true" data-loopname="items"></div>
+* data-loop="true" -- atributo que indica que es un loop 
+* data-loopname="items" -- atributo donde se envia variable type Array de object  --se puede separa por puntos   data-loopname="items.opcion2.opcion3.n---"
+* variables adicionates total item
+    --totalPrice= (price)*quantity // resultado de total por price item {!totalPrice}
+    --totalSellingPrice= parseFloat(sellingPrice)*quantity // resultado de total por sellingPrice item {!totalSellingPrice}
+    --totalListPrice= parseFloat(listPrice)*quantity // resultado de total por listPrice item {!totalListPrice}
+* Variables adicionales
+    -- subtotal  subtotal del producto {!subtotal}
+    -- discount  descuento del producto {!discount}
+*/
+(function ($) {
+    var settingsDefault= {
+		elementActivador: '#minicartDeskt',// Elemento activador minicart
+		elementPlantilla: '#templeteMinicart', // Elemento HTML donde esta la plantilla del minicart
+        elementContenedor: '#minicart',// Elemento contenedor del minicart. Donde se va cargar
+        classShowMincart: 'minicart-open', // Clase activadora vista minicart
+        elementClose: '.closeMinicart', // Elemento para quitar clase activadora minicart 
+        elementCantidad: '.numberofItems',// Elemento para setear cantidad de productos
+        elementAddCantidad: '.item.cart-plus',// Elemento sumar cantidad producto
+        elementMinusCantidad: '.item.cart-minus',// Elemento disminuir cantidad producto
+        elementRemoveItem: '.item-cart-remove', // elemento para eliminar item del carrito
+        maxCaracterNameProduct: 40, //cantidad caracteres nombrer producto
+        classFormatNumber: '.format-moneda', //Elemento aplicar format numero
+        addSimboloFormat: '$', // Añadir un simbolo al inicio de un valor formateado
+        dividirValores: 100, // Dividir valores fotmateados
+        numeroDecimales: 0,  // Caracter separador decimales
+        caracterDecimal: ',',  // Caracter separador decimales
+        caracterUnidad: '.',  // Caracter separador unicades Mil
+        /** 
+        * Para acticar el select cantidad es importante enviar el data-index en la plantilla
+        * <select class="clase activadora" data-index="{!index}">{!options}</select>
+        */
+        elementSelectCantidad: '.active-select-cantidad', // elemento setear opciones cantidades
+        activeSelectCantidad: false, // True para activacion de select cantidades Para llenar opciones enviar en la plantilla {!options}
+        maxOpctionSelectCantidad: 30, // maximo opciones select
+        labelOption: 'cant', // Label opcion select cantidad
+        /** 
+         * IDS totalizer orderform vtex
+         */
+        totalizerIDItems: 'Items', // id totalizar item orderform
+        totalizerIDDiscounts: 'Discounts', // id totalizar descuentos orderform
+    }
+        
+    $.MINICART= function(options){
+        var t = this;
+        var settings = $.extend({}, settingsDefault, options || {});
+
+        // Inicio funciones generales plugin
+        var init= () => {
+            $(document).ready(function(e){
+                t.startMiniCart();
+                t.setAccionsMinicart();
+                t.eventSelectCantidad();
+			});
+        };
+        /**
+         * Iniciar pluggin minicart
+         */
+         t.startMiniCart= function(){
+            var __elementContenedor= $(document).find(settings.elementContenedor);
+            // Validacion si existe contenedor para el minicart
+            if(__elementContenedor.length > 0){
+                __elementContenedor.html('');
+                var __elementPlantilla= $(document).find(settings.elementPlantilla);
+                // Validacion si existe plantilla minicart
+                if(__elementPlantilla.length > 0){
+                    if(vtexjs.checkout){
+                        vtexjs.checkout.getOrderForm().then(function(orderForm){
+                            t.setVariablesView({objectT:orderForm, templeteV:__elementPlantilla.html()});
+                        });
+                    }
+                }
+            }
+         };
+        /**
+         * Metodos para setear variables que se encuentran en una vista
+         * @param {objectT, templeteV}
+         * @returns String templeteVT
+         */
+        t.setVariablesView= function({objectT={}, templeteV=""}){
+            var templeteVT= templeteV;
+            var __elementContenedor= $(document).find(settings.elementContenedor);
+            var __elementCantidad= $(document).find(settings.elementCantidad);
+            var catidadItems= objectT.items.length;
+
+            // limpiar contenedor
+            __elementContenedor.html('');
+
+            // Setear cantidad de productos
+            if(__elementCantidad.length > 0){
+                __elementCantidad.text(catidadItems);
+            }
+
+            // setear variables totales
+            objectT.subtotal= 0;
+            objectT.discount= 0;
+            $.each(objectT.totalizers, function(kkvv, vvtt){
+                if(settings.totalizerIDItems== vvtt.id){
+                }
+                if(settings.totalizerIDDiscounts== vvtt.id){
+                    objectT.discount= vvtt.value;
+                }
+            });
+            objectT.subtotal= parseFloat(objectT.value)+(parseFloat(objectT.discount)*-1);
+
+            // Setear variables principales
+            if(typeof objectT == 'object'){
+                $.each(objectT, function(key, value){
+                    if(typeof value === "string" || typeof value === "number"){
+                        templeteVT= templeteVT.replace(new RegExp('{!'+key+'}', 'g'), value);
+                    }
+                });
+            }
+            __elementContenedor.html(templeteVT);
+            // verificar si existen loop
+            var __elementLoop= __elementContenedor.find('[data-loop="true"]');
+            if(__elementLoop.length > 0){
+                $.each(__elementLoop, function(){
+                    var __thisElement= $(this)
+                    var contentLoop = __thisElement.html();
+                    // limpiarContenedor
+                    __thisElement.html('');
+                    var objTT=objectT;
+                    var keyLoop = $(this).data('loopname');
+                    var validFlujo= true;
+                    keyLoop= keyLoop.split('.');
+
+                    $.each(keyLoop, function(keyE, valueE){
+                        if(objTT[valueE]){
+                            objTT= objTT[valueE];
+                        }else{
+                            validFlujo=false;
+                            return; 
+                        }
+                    });
+
+                    if(validFlujo==false){
+                        console.log('Debe enviar un objeto.');
+                        return;
+                    }
+
+                    if(objTT && typeof objTT == 'object'){
+                        $.each(objTT, function(keyI, valueI){
+                            var plantillaTTT= contentLoop;
+                            // Cargar info plantilla 
+                           
+                            valueI.totalPrice= parseFloat(valueI.price)*valueI.quantity;
+                            valueI.totalSellingPrice= parseFloat(valueI.sellingPrice)*valueI.quantity;
+                            valueI.totalListPrice= parseFloat(valueI.listPrice)*valueI.quantity;
+                            
+                            $.each(valueI, function(kInf, vInf){
+                                if(typeof vInf === "string" || typeof vInf === "number"){
+                                    if(kInf=='name' && typeof vInf === "string" && vInf.length > settings.maxCaracterNameProduct){
+                                        vInf=vInf.substring(0, settings.maxCaracterNameProduct)+'...';
+                                    }
+                                    plantillaTTT= plantillaTTT.replace(new RegExp('{!'+kInf+'}', 'g'), vInf);
+                                }
+                            });
+                            var opcionSelectCantidad = t.setSelectCantidad(valueI);
+                            plantillaTTT = plantillaTTT.replace(new RegExp('{!options}', 'g'), opcionSelectCantidad);
+                            plantillaTTT = plantillaTTT.replace(new RegExp('{!index}', 'g'), keyI);
+                            __thisElement.append(plantillaTTT);
+                        });
+                        console.log('contentLoop',objTT, 'keyLoop', keyLoop);
+                    }
+                });
+            }
+            //formatear valores
+            setTimeout(() => {
+                t.formatNumeroMinicart();
+            }, 200);
+        };
+        /** Setear opciones select cantidad minicart */
+        t.setSelectCantidad= function(item){
+            var options='';
+            if(settings.activeSelectCantidad==true){
+                for(let i=0 ; i < settings.maxOpctionSelectCantidad; i++){
+                    let selected='';
+                    if((i+1) == item.quantity){selected='selected'}
+                    options+='<option value="'+(i+1)+'" '+selected+'>'+(i+1)+' '+settings.labelOption+'</option>';
+                }
+            }
+            return options;
+        };
+        /** Iniciar evnto change select cantidad */
+        t.eventSelectCantidad= function(){
+            if(settings.activeSelectCantidad==true){
+                if($(document).find(settings.elementSelectCantidad).length > 0){
+                    $(document).on('change', settings.elementSelectCantidad, function(){
+                        var index = $(this).data('index');
+                        vtexjs.checkout.updateItems([
+                            {
+                                index:parseFloat(index), 
+                                quantity: parseFloat($(this).val())
+                            }
+                        ], null, false);
+                    });
+                }
+            }
+        };
+        /**
+         * Inicio de acciones minicart
+         */
+         t.setAccionsMinicart= function(){
+            $(document).on('click', settings.elementActivador, function(e){
+                e.preventDefault();
+                $(document).find(settings.elementContenedor).toggleClass(settings.classShowMincart);
+            });
+            $(document).on('click',settings.elementClose, function(){
+                $(document).find(settings.elementContenedor).removeClass(settings.classShowMincart);
+            });
+            $(window).on("checkoutRequestEnd.vtex", function(evt, orderForm) {
+                t.startMiniCart();
+                $(document).find(settings.elementContenedor).addClass(settings.classShowMincart);
+            });
+            $(document).on('click',settings.elementRemoveItem, function(e){
+                e.preventDefault();
+                var index = $(this).data('index');
+                var quantity = $(this).data('quantity');
+                if(quantity != undefined && index != undefined){
+                    vtexjs.checkout.removeItems([
+                        {
+                            index:parseFloat(index), 
+                            quantity: parseFloat(quantity)
+                        }
+                    ], null, false).then(function(){
+                        t.startMiniCart();
+                        $(document).find(settings.elementContenedor).addClass(settings.classShowMincart);
+                    });
+                }else{
+                    console.log('validar que el elemento en la plantilla contenga data-index="{!index}" y data-quantity="{!quantity}"');
+                }
+            });
+         };
+        /**
+         * Metodo para aplicar formato numero o moneda a elementos minicart
+         */
+        t.formatNumeroMinicart= function(){
+            var __elementFormat= $(document).find(settings.elementContenedor+' '+settings.classFormatNumber);
+            if(__elementFormat.length > 0){
+                $.each(__elementFormat, function(){
+                    var valorTT= $(this).text();
+                    if(settings.dividirValores && typeof settings.dividirValores == 'number' && settings.dividirValores > 0){
+                        valorTT= parseFloat(valorTT)/parseFloat(settings.dividirValores);
+                    }
+                    valorTT= t.format_number(valorTT,settings.numeroDecimales, settings.caracterDecimal, settings.caracterUnidad);
+                    $(this).text(settings.addSimboloFormat+(valorTT));
+                });
+            }        
+        };
+        /**
+         * Metodo para cargar producto order form
+         */
+        t.format_number= function (amount, decimalCount=2, decimal=',', thousands='.'){
+            try {
+                decimalCount= decimalCount== undefined ? 2 : decimalCount;
+                decimal= decimal== undefined ? '.' : decimal;
+                thousands= thousands== undefined ? ',' : thousands;
+            decimalCount = Math.abs(decimalCount);
+            decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+        
+            const negativeSign = amount < 0 ? "-" : "";
+        
+            var i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+            var j = (i.length > 3) ? i.length % 3 : 0;
+        
+            return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1"+thousands ) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+            } catch (e) {
+            console.log(e)
+            }
+        };
+        init();
+        return t;
+    }
+})(jQuery);
+/**
+ * Plugin formateo de numero default vtex
+ */
+(function($){
+    var settingsDefault= {
+		elementsFormatVtex: [
+            '.item__showcase_new__price-bestr'
+        ],// Elementos a los que se le aplica formate de numero default vtex
+        addSimboloFormat: '$', // Añadir un simbolo al inicio de un valor formateado
+        numeroDecimales: 0,  // Caracter separador decimales
+        caracterDecimal: ',',  // Caracter separador decimales
+        caracterUnidad: '.',  // Caracter separador unicades Mil
+    }
+        
+    $.FORMATVTEX= function(options){
+        var t = this;
+        var settings = $.extend({}, settingsDefault, options || {});
+        var init= function(){
+            t.startFormatVtex();
+        };
+        /** Metodo inicio formateo numeros precios por default vtex */
+        t.startFormatVtex= function(){
+            $.each(settings.elementsFormatVtex, function(key, value){
+                var _elementPrice= $(document).find(value);
+                $.each(_elementPrice, function(){
+                    var textPrice= $(this).text();
+                    if(typeof textPrice === 'string'){
+                        textPrice= textPrice.replace(settings.addSimboloFormat, '');
+                        textPrice= textPrice.replace(',00', '');
+                        textPrice= textPrice.replace(/\./g, '');
+                        $(this).text(settings.addSimboloFormat+' '+t.number_format(parseFloat(textPrice),settings.numeroDecimales,settings.caracterDecimal,settings.caracterUnidad));
+                    }
+                });
+            });
+        };
+        /**
+         * Metodo para cargar producto order form
+         */
+         t.number_format= function (amount, decimalCount=2, decimal=',', thousands='.'){
+            try {
+                decimalCount= decimalCount== undefined ? 2 : decimalCount;
+                decimal= decimal== undefined ? '.' : decimal;
+                thousands= thousands== undefined ? ',' : thousands;
+            decimalCount = Math.abs(decimalCount);
+            decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+        
+            const negativeSign = amount < 0 ? "-" : "";
+        
+            var i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+            var j = (i.length > 3) ? i.length % 3 : 0;
+        
+            return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1"+thousands ) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+            } catch (e) {
+            console.log(e)
+            }
+        };
+        init();
+    }; 
+})(jQuery);

@@ -1,0 +1,362 @@
+body {
+    background-color: #eee;
+}
+
+#checkout-confirmation-header {
+    background-color: #b5cf52;
+    padding: 18px;
+}
+
+.bg-washed-green div {
+    text-align: center;
+}
+
+.cconf-summary {
+    padding: 2%;
+    background: white;
+    width: 31.5%;
+    position: relative;
+    bottom: 51px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+}
+
+#app-top {
+    margin-bottom: 1.5rem;
+}
+
+#app-container .cf .mb2 .lh-copy .fw4 {
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.cconf-profile {
+    padding: 2%;
+    background: white;
+    height: 172px;
+    padding-top: 8px;
+}
+
+.cconf-payment {
+    padding: 2%;
+    background: white;
+    width: 32%;
+    margin-right: 3%;
+    float: left;
+    height: 172px;
+}
+
+#app-container .cf .mb2 .lh-copy {
+    padding: 2%;
+    background: white;
+    margin: 0px;
+    width: 65.3%;
+    font-size: 13px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+}
+
+#app-top div h1 {
+    display: none;
+}
+
+#app-top div time {
+    display: none;
+}
+
+.bg-washed-green {
+    background: white;
+    border: 0px;
+    border-radius: 0;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+}
+
+.bg-washed-green div .fw6 {
+    color: #b5cf52;
+    text-transform: uppercase;
+}
+
+.bg-washed-green div .fl p:nth-child(1) span:nth-child(1) {
+    font-size: 0px;
+}
+
+.bg-washed-green div .fl p:nth-child(1) span:nth-child(1)::before {
+    content: 'Enviaremos al email';
+    font-size: 14px;
+}
+
+.lh-copy {
+    font-size: 15px;
+    font-weight: bold;
+    color: #515151;
+}
+
+.cconf-profile span {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    height: 50px;
+    letter-spacing: normal;
+    color: #515151;
+}
+
+.cconf-profile .lh-copy {
+    font-size: 13px;
+    font-weight: 100;
+}
+
+#app-container .center {
+}
+
+#app-container .center .mb3 {
+    margin-top: -1%;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.06);
+}
+
+.cconf-payment h3 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: normal;
+    color: #515151;
+}
+
+.cconf-payment .lh-copy {
+    font-size: 13px;
+    font-weight: 100;
+}
+
+.cconf-summary h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #e1e1e1;
+    text-align: center;
+    letter-spacing: normal;
+    text-transform: capitalize;
+    color: #626262;
+}
+
+.cconf-summary h3 ::after {
+    content: " de Compra";
+}
+
+.b--light-gray {
+    border-color: white;
+}
+
+.cconf-summary .lh-copy {
+    font-size: 13px;
+    font-weight: 100;
+}
+
+.cconf-summary .lh-copy p:last-child span span:first-child {
+    font-size: 13px;
+    font-weight: 100;
+    color: red;
+    color: #626262;
+    font-weight: bold;
+}
+
+.cf .pv4-ns {
+    display: none;
+}
+
+.container {
+    margin: 0;
+    width: 100%;
+    margin-top: 3rem;
+    background: white;
+    padding-top: 1rem;
+}
+
+.footer-checkout-mediospago {
+    width: 70%;
+    float: left;
+}
+
+.list-inline {
+    float: left;
+    width: 25%;
+}
+
+.list-inline li {
+    width: 40%;
+    margin: 0;
+    float: left;
+}
+
+.list-inline li a {
+    float: left;
+    color: black;
+}
+
+.list-inline li a img {
+    height: 15px;
+}
+
+.list-inline li::marker {
+    display: none;
+    color: white;
+}
+
+.footer-checkout-mediospago {
+    padding-left: 8%;
+}
+
+.cconf-continue-button {
+    cursor: pointer;
+    background: #b5cf52;
+    width: 30%;
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    border-style: none;
+    text-transform: uppercase;
+}
+
+.cconf-myorders-button {
+    cursor: pointer;
+    background: #b5cf52;
+    width: 30%;
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    border-style: none;
+    text-transform: uppercase;
+}
+
+.cconf-profile {
+    margin-top: -1% !important;
+}
+
+.hover-no-underline:hover {
+    color: white;
+    background: black;
+}
+
+@media screen and (max-width: 950px) {
+    .cconf-continue-button {
+        cursor: pointer;
+        background: #b5cf52;
+        width: 50%;
+        height: 50px;
+        color: white;
+        font-weight: bold;
+        border-style: none;
+    }
+
+    .cconf-myorders-button {
+        cursor: pointer;
+        background: #b5cf52;
+        width: 40%;
+        height: 50px;
+        color: white;
+        font-weight: bold;
+        border-style: none;
+    }
+
+    #app-container .center .mb3 {
+        width: 100%;
+    }
+
+    #app-container .cf .mb2 .lh-copy {
+        width: 100%;
+    }
+
+    .cconf-profile {
+    }
+
+    .cconf-payment {
+        margin-bottom: 5rem;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    #app-container .center .mb3 {
+        width: 100%;
+    }
+
+    .list-inline li {
+        width: 25%;
+        margin: 0;
+        float: left;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+    }
+
+    #app-container .center {
+        padding: 0%;
+        width: 100%;
+        margin-top: 5%;
+    }
+
+    .footer-checkout-mediospago {
+        width: 100%;
+        float: none;
+        margin: 0 auto;
+        padding: 0px;
+        border-bottom: 1px solid darkgrey;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 1rem;
+    }
+
+    .bg-washed-green {
+        width: 100%;
+    }
+
+    #app-top .w-70-ns {
+        margin: 0;
+        padding: 0;
+        width: 100% !important;
+    }
+
+    #app-container .center .mb3 {
+        margin-top: 0px;
+    }
+
+    #app-container .center .mt0-ns {
+        margin-top: 5%;
+        background: black;
+        margin: 0 auto;
+    }
+
+    .cconf-continue-button {
+        visibility: hidden;
+        width: 80%;
+        height: 50px;
+        background: black;
+        border-radius: 0px;
+        margin: 0 auto;
+    }
+
+    .cconf-continue-button ::before {
+        visibility: visible;
+        content: "SEGUIR COMPRANDO";
+        width: 100%;
+        height: 50px;
+        background: black;
+        border-radius: 0px;
+        width: 0%;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .cconf-myorders-button {
+        width: 30%;
+        height: 70px;
+        display: none;
+    }
+
+    .list-inline {
+        float: left;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+}

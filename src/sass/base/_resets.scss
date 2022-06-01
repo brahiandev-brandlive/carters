@@ -1,0 +1,32 @@
+body{
+    margin:0;
+    padding:0;
+}
+
+figure{
+    margin: 0;
+    padding:0;
+    display:block;
+}
+img{
+
+}
+ul{
+    margin:0;
+    padding:0 ;
+}
+ul > li{
+    list-style: none;
+}
+a{
+    display: block;
+    color: #575756;
+    text-decoration: none !important;
+}
+picture{
+    width: 100%;
+    display:block;
+    img{
+        width: 100%;
+    }
+}

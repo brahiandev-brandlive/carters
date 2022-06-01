@@ -1,0 +1,116 @@
+<!-- 
+ *
+ * Desenvolvido por Integrando.se
+ * hello@integrando.se
+ * 
+ * Bootstrap v.3
+ *
+ -->
+ <div id="extra-footer-top"></div>
+
+ <footer class="footer">
+ 
+     <div class="footer__newsletter">
+         <h3>¡Suscríbete  a nuestro Newsletter y Recibe 10% off!</h3>
+         <p>Sé unos de los primeros en conocer las últimas novedades, tendencias y descuentos.</p>
+         <div class="form">
+             <fieldset class="formulario">
+                 <form id="newsletter" class="formulario-newsletter">
+                     <input id="email" placeholder="Ingresa tu correo electrónico" class="newsletter-client-email" size="40" type="email" name="email" />
+                     <input id="btnSend" class="btn-ok newsletter-button-ok" value=">" type="submit" name="btnSend"/>
+                     <input id="isNewsletterOptIn" name="isNewsletterOptIn" type="hidden" value="true"/>
+                 </form>
+             </fieldset>
+             <div id="message"></div>
+         </div>
+     </div>
+ 
+     <div class="container">
+ 
+         <div class="footer__cols row">
+             <div class="footer__cols-item col-sm-2 col-xs-12">
+                 <ul>
+                     <li><a href="/" class="footer-logo"><img src="/arquivos/tuiss-logo-footer.png" alt="Tuiss Logo Footer"/></a></li>
+                 </ul>
+             </div>
+             <div class="footer__cols-item single-item col-xs-12 col-sm-12 visible-xs visible-sm">
+                 <a href="#"><h3>¿Cómo comprar?</h3></a>
+             </div>
+             <div class="footer__cols-item single-item col-xs-12 col-sm-12 visible-xs visible-sm">
+                 <h3>Historial</h3>
+             </div>
+             <div class="footer__cols-item single-item col-xs-12 col-sm-12 visible-xs visible-sm">
+                 <h3>Lista de deseos</h3>
+             </div>
+             <div class="footer__cols-item withdrop-item col-md-2 col-xs-12">
+                 <h3>Comunícate con nosotros</h3>
+                 <ul>
+                     <li><a href="#">Rastrea tu orden</a></li>
+                     <li><a href="#">Política de privacidad</a></li>
+                     <li><a href="#">Términos y condiciones</a></li>
+                     <li><a href="#">Preguntas frecuentes</a></li>
+                 </ul>
+             </div>
+             <div class="footer__cols-item withdrop-item col-md-2 col-xs-12">
+                 <h3>Sobre nosotros</h3>
+                 <ul>
+                     <li><a href="#">Quienes somos</a></li>
+                     <li><a href="#">Política de privacidad</a></li>
+                     <li><a href="#">Términos y condiciones</a></li>
+                     <li><a href="#">Preguntas frecuentes</a></li>
+                 </ul>
+             </div>  
+             <div class="footer__cols-item withdrop-item col-md-3 col-xs-12">
+                 <h3>Ayuda</h3>
+                 <ul>
+                     <li><a href="#">Terminos y condiciones de la compra</a></li>
+                     <li><a href="#">Politica de privacidad y uso de datos</a></li>
+                     <li><a href="#">Política de envíos y entrega de producto</a></li>
+                     <li><a href="#">Carta de garantía</a></li>
+                     <li><a href="#">Descargas (doc técnicos de producto)</a></li>
+                     <li><a href="#">Derecho de retracto</a></li>
+                     <li><a href="#">PQR</a></li>                    
+                 </ul>
+             </div>       
+             <div class="footer__cols-item col-md-3 col-xs-12">
+                 <div class="footer__cols-item-desktop visible-md visible-lg">
+                     <h3>Historial</h3>
+                     <h3>Lista de deseos</h3>
+                 </div>
+                 <h3>Síguenos</h3>
+                 <ul class="list-inline">
+                     <li><a href="#" target="_Blank" class="facebook"><img src="/arquivos/ic_fbk.png" alt="Tuiss Facebook"/></a></li>
+                     <li><a href="#" target="_Blank" class="instagram"><img src="/arquivos/ic_ig.png" alt="Tuiss Instagram"/></a></li>
+                 </ul>
+                 <img src="/arquivos/mediospago-footer.png" alt="Mercadopago, Visa, MarsterCard, Diners, PayU, PSE" class="footer-mediospago"/>
+             </div>  
+         </div>
+     </div><!-- .container -->
+ 
+ </footer><!-- .footer -->
+ 
+ <div id="extra-footer-middle"></div>
+ 
+ <div class="copy-right text-center">
+     <div class="container">
+         <ul class="devs list-inline">
+             <li>
+                 <a href="#">
+                     Sitio Seguro: 
+                     <img src="/arquivos/pagoseguro-footer.png" alt="Sitio Seguro" class="img-responsive" />
+                 </a>
+             </li>
+             <li>
+                 <a href="#" target="_Blank">
+                     Vigilado: 
+                     <img src="/arquivos/superintendencia-logo-footer.png" alt="Superintentencia de industria y comercio" class="img-responsive" />
+                 </a>
+             </li>            
+             
+         </ul>
+     </div>
+ </div>
+ <div id="extra-footer-bottom"></div>
+
+
+ #set($tercerDescuento = $product.ProductField(49))

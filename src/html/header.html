@@ -1,0 +1,305 @@
+<!-- 
+ *
+ * Desenvolvido por Integrando.se
+ * hello@integrando.se
+ * 
+ * Bootstrap v.3
+ *
+ -->
+
+ <div id="extra-header-top"></div>
+
+<header class="header-container">
+    
+    <div class="topbar">
+        <p>Contáctanos al 312 234 5678</p>
+    </div><!-- .topbar -->
+
+    <div class="header">
+        <div class="container">
+            <div class="row header-top">
+                <div class="logo text-right col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <a href="/" title="Tuiss Logo" class="link-logo">
+                    <img src="/arquivos/tuiss-logo.png" alt="Logo" />
+                    </a>
+                </div>
+                <!-- .logo -->
+
+                <div class="mini-cart col-mini-cart col-xs-6">
+                    <a title="Carrinho de Compras" href="/checkout/#/cart" class="btn btn-block btn-mini-cart">
+                        <img src="/arquivos/minicart-icon.png" alt="Minicart Icon"/>
+                        <span class="badge bg-danger mini-cart-qty-admake">0</span>
+                    </a>
+                    <div id="mini-cart-admake-aux" class="hidden">
+                        <vtex.cmc:miniCart />
+                        <vtex.cmc:AmountItemsInCart />
+                    </div><!-- #mini-cart-admake-aux -->
+                    <div id="mini-cart-admake" style="display: none;">
+                        <div class="mini-cart-header"></div>
+                        <div class="mini-cart-itens">
+                            <!-- recebe itens -->
+                        </div>
+                        <div class="mini-cart-footer">
+                            <div class="mini-cart-totais">
+                                <strong id="mini-cart-admake-total" class="pull-right"><!-- recebe valor total --></strong>
+                                <span>Total</span>
+                            </div>
+                            <div class="mini-cart-botao">
+                                <a href="/checkout/#/cart" class="btn btn-block btn-verde btn-finalizar-compra">Fechar Pedido</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .mini-cart -->
+
+            </div>
+            <div class="row header-nav">
+
+                <div class="button-menu-xs col-xs-9 col-md-2">
+                    <button class="btn-open-menu-xs btn-menu-xs" data-id="#menu-mobile">
+                        <!--<img src="/arquivos/menu-h-icon.png"/>-->
+                        <i class="fa fa-bars"></i>
+                        <p>COMPRA AQUÍ</p>
+                    </button>
+                    <nav id="menu-mobile" style="display: none;">
+                        <div class="container-close-menu">
+                            <span class="close-menu pull-right btn-menu-xs" data-id="#menu-mobile">
+                                <img src="/arquivos/close-icon.png" alt="close icon"/>
+                            </span>
+                        </div>
+                        <div class="nav-mobile-menu hidden-md hidden-lg">
+                            <div class="menu-top">
+                                <p>
+                                    <a class="menu-home"><img src="/arquivos/home-icon.png" alt="Menú-Home"/>HOME</a>
+                                </p>
+                            </div>
+                            <ul class="menu">
+                                <li class="menu-title">
+                                    <a href="#">PRODUCTOS</a>
+                                    <a href="#">Ver todos los productos</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/cortina-celular-icon.png" alt="Menú Cortina celular"/></a>
+                                    <a href="#">Cortina celular</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/nuance-icon.png" alt="Menú Nuance"/></a>
+                                    <a href="#">Nuance</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/sheer-vertical-icon.png" alt="Menú Sheer Vertical"/></a>
+                                    <a href="#">Sheer Vertical</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/enrollables-icon.png" alt="Menú Enrollables"/></a>
+                                    <a href="#">Enrollable</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/sheer-elegance.png" alt="Menú Sheer Elegance"/></a>
+                                    <a href="#">Sheer Elegance</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/panel-japones-icon.png" alt="Menú Panel Japonés"/></a>
+                                    <a href="#">Panel Japonés</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/romanas-icon.png" alt="Menú Romanas"/></a>
+                                    <a href="#">Romanas</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/maderas-icon.png" alt="Menú Maderas"/></a>
+                                    <a href="#">Maderas</a>
+                                </li>                                
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/horizontales-aluminio-icon.png" alt="Menú Horizontales de aluminio"/></a>
+                                    <a href="#">Horizontales de aluminio</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/verticales-icon.png" alt="Menú Verticales"/></a>
+                                    <a href="#">Verticales</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/electricas-icon.png" alt="Menú Eléctricas"/></a>
+                                    <a href="#">Eléctricas</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/dia-noche-icon.png" alt="Menú Día y noche 2 en 1"/></a>
+                                    <a href="#">Día y noche (2 en 1)</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/termicas-icon.png" alt="Menú Térmicas"/></a>
+                                    <a href="#">Térmicas</a>
+                                </li>
+                                <li class="menu-title menu-medir-m">
+                                    <a href="#">¿CÓMO MEDIR?</a>
+                                </li>
+                                <li class="menu-title">
+                                    <a href="#">RASTREA TU PEDIDO</a>
+                                </li>  
+                            </ul>
+                        </div>
+                        <div class="nav-desktop-menu hidden-xs hidden-sm">
+                            <ul class="menu">
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/cortina-celular-icon.png" alt="Menú Cortina celular"/></a>
+                                    <a href="#">Cortina celular</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/nuance-icon.png" alt="Menú Nuance"/></a>
+                                    <a href="#">Nuance</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/sheer-vertical-icon.png" alt="Menú Sheer Vertical"/></a>
+                                    <a href="#">Sheer Vertical</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/enrollables-icon.png" alt="Menú Enrollables"/></a>
+                                    <a href="#">Enrollable</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/sheer-elegance.png" alt="Menú Sheer Elegance"/></a>
+                                    <a href="#">Sheer Elegance</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/panel-japones-icon.png" alt="Menú Panel Japonés"/></a>
+                                    <a href="#">Panel Japonés</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/romanas-icon.png" alt="Menú Romanas"/></a>
+                                    <a href="#">Romanas</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/maderas-icon.png" alt="Menú Maderas"/></a>
+                                    <a href="#">Maderas</a>
+                                </li>    
+                            </ul>
+                            <ul class="menu">
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/horizontales-aluminio-icon.png" alt="Menú Horizontales de aluminio"/></a>
+                                    <a href="#">Horizontales de aluminio</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/verticales-icon.png" alt="Menú Verticales"/></a>
+                                    <a href="#">Verticales</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/electricas-icon.png" alt="Menú Eléctricas"/></a>
+                                    <a href="#">Eléctricas</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#"><img src="/arquivos/dia-noche-icon.png" alt="Menú Día y noche 2 en 1"/></a>
+                                    <a href="#">Día y noche (2 en 1)</a>
+                                </li>
+                                <li class="menu-items-all">
+                                    <a href="#">Ver todos los productos</a>
+                                </li>
+                            </ul>
+                            <ul class="menu menu-colors">
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #fff;"></a>
+                                    <a href="#">Blanco</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #f0f0f0;"></a>
+                                    <a href="#">Gris</a>
+                                </li>  
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #9d9d9c;"></a>
+                                    <a href="#">Plateado</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #000;"></a>
+                                    <a href="#">Negro</a>
+                                </li>       
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #b5cf52;"></a>
+                                    <a href="#">Verde</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #573404;"></a>
+                                    <a href="#">Madera</a>
+                                </li>                                                                                                       
+                            </ul>    
+                            <ul class="menu menu-colors">
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #fff;"></a>
+                                    <a href="#">Blanco</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #f0f0f0;"></a>
+                                    <a href="#">Gris</a>
+                                </li>  
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #9d9d9c;"></a>
+                                    <a href="#">Plateado</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #000;"></a>
+                                    <a href="#">Negro</a>
+                                </li>       
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #b5cf52;"></a>
+                                    <a href="#">Verde</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #573404;"></a>
+                                    <a href="#">Madera</a>
+                                </li>                                                                                                       
+                            </ul>        
+                            <ul class="menu menu-colors">
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #fff;"></a>
+                                    <a href="#">Blanco</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #f0f0f0;"></a>
+                                    <a href="#">Gris</a>
+                                </li>  
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #9d9d9c;"></a>
+                                    <a href="#">Plateado</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #000;"></a>
+                                    <a href="#">Negro</a>
+                                </li>       
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #b5cf52;"></a>
+                                    <a href="#">Verde</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a href="#" class="menu-items-circle" style="background-color: #573404;"></a>
+                                    <a href="#">Madera</a>
+                                </li>                                                                                                       
+                            </ul>                                                                                
+                        </div>
+                    </nav>
+                </div><!-- .button-menu-xs -->
+                
+                <div class="menu-desktop hidden-xs hidden-sm col-md-6 col-md-offset-1">
+                    <div>
+                        <ul class="list-inline">
+                            <li class="menu-items">
+                                <a href="#"><img src="/arquivos/rastear-pedido-icon.png" alt="Rastrea tu pedido"/></a>
+                                <a href="#">Rastrea tu pedido</a>
+                            </li>
+                            <li class="menu-items">
+                                <a href="#"><img src="/arquivos/comomedir-icon.png" alt="¿Cómo medir?"/></a>
+                                <a href="#">¿Cómo medir?</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="button-search col-xs-3">
+                    <img src="/arquivos/search-icon.png" alt="Search Icon"/>
+                </div>
+
+                <div class="search col-xs-12 col-sm-5 col-md-4 col-lg-6" style="display: none;">
+                    <vtex.cmc:fullTextSearchBox/>
+                </div><!-- .search -->
+
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .header -->
+
+</header><!-- .header-container -->

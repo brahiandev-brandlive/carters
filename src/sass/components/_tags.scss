@@ -1,0 +1,94 @@
+.productItem__image {
+  position: relative;
+  .flagDestaque {
+    .flag {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      height: auto;
+      top: 0;
+      color: transparent;
+      &::before {
+        background-size: 100% 100%;
+        background-position: center;
+        background-attachment: unset;
+        background-repeat: no-repeat;
+        content: '';
+        position: absolute;
+      }
+      &.best-seller{
+        &::before {
+          width: 50%;
+          min-height: 50%;
+          background-image: url("/arquivos/tag-best_seller.png");
+          left: auto;
+          right: 0;
+          z-index: 3;
+        }
+      }
+      &.mas-vendidos {
+        &::before {
+          width: 25%;
+          min-height: 25%;
+          background-image: url("/arquivos/tag-more_seller.png");
+          top: 40%;
+          left: 0;
+          z-index: 3;
+        }
+      }
+      &.nuevo {
+        &::before {
+          width: 25%;
+          min-height: 25%;
+          background-image: url("/arquivos/tag-new.png");
+          top: 15%;
+          left: 0;
+          z-index: 3;
+        }
+      }
+    }
+  }
+  .flags.Show {
+    background-color: #f60 !important;
+    color: $white;
+  }
+  .flags.Show {
+    span.flags__discount {
+      color: $white;
+      font-size: 18px;
+      padding-left: 1rem;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
+      line-height: 16px;
+      &::before {
+        content: "-";
+        margin-right: 3px;
+      }
+    }
+    &::after {
+      border-top: 12px solid transparent !important;
+      border-left: 10px solid #f60 !important;
+      border-bottom: 14px solid transparent !important;
+    }
+  }
+  // Fix overlay clicked
+  a.product-image {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+//Autenticación
+.render-route-authentication-standalone {
+    .items-center span, .vtex__icon-arrow-back, .vtex-button__label {
+        color: gray;
+        font-size: 12px;
+        text-decoration: underline;
+    }
+    .vtex_my-authentication_box_container {
+        border-radius: 0px;
+        border: 1px solid #d1d1d1;
+    }
+    .vtex_my-authentication_box_content {
+        color: #979899;
+    }
+}

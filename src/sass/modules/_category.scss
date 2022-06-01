@@ -1,0 +1,669 @@
+.categoria {
+    font-family: $basefont;
+    .searchResultsTime {
+        &:first-child {
+            display: inline-block !important;
+        }
+        display: none !important;
+        position: absolute;
+        top: -33px;
+        right: 10px;
+        padding-right: 10px;
+        @media screen and (max-width: $breakpoint-tablet) {
+            top: -35px;
+            color: transparent;
+        }
+        .resultado-busca-termo, .resultado-busca-tempo {
+            display: none;
+        }
+        .resultado-busca-numero {
+            color: $gray;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 14px;
+            @media screen and (max-width: $breakpoint-tablet) {
+                font-size: 10px;
+            }
+            span {
+                font-family: $basefont;
+            }
+            .label {
+                font-size: 0;
+            }
+            .value::after {
+                content: " colecciones";
+            }
+        }
+    }
+    .sub {
+        &:last-child {
+            display: none !important;
+        }
+        position: absolute;
+        right: 0;
+        top: -42px;
+        .resultado-busca-filtro {
+            text-align: right;
+            .orderBy {
+                display: none;
+                label {
+                    display: none;
+                }
+                select {
+                    color: $gray;
+                    font-size: 10px;
+                    font-weight: 400;
+                    line-height: 14px;
+                    text-align: left;
+                    text-transform: uppercase;
+                    border: none;
+                }
+            }
+            //Comparar productos
+            .compare {
+                display: none;
+                position:fixed;
+                bottom:0;
+                left:0;
+                height:0;
+                width:100%;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+                background-color: $graybg2;
+                z-index:9999; 
+                margin: 0;
+                text-align: left;
+                font-size: 0;
+                color: $gray;
+                padding: 20px;
+                .text_compare {
+                    font-family: $basefont;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: $gray;
+                    @media screen and (max-width: $breakpoint-tablet){
+                        font-size: 0;
+                    }
+                }
+                .btn-comparar {
+                    display: none; 
+                }
+                .btn-compararWrapper {
+                    border-radius: 0;
+                    background-color: $gray;
+                    color: $white;
+                    cursor: pointer;
+                    text-decoration: none;
+                    position: absolute;
+                    right: 10px;
+                    top: 20%;
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 14px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    padding: 10px 30px;
+                    @media screen and (max-width: $breakpoint-tablet){
+                        top: 95px;
+                        right: 3.25rem;
+                        z-index: 10;
+                    }
+                    &:hover {
+                        background-color:$black;
+                        color:#fff;
+                        text-decoration:none;
+                        outline:0; 
+                    }
+                }      
+                .compare-selection-count {
+                    background: none;
+                    font-size: 14px;
+                    color: $gray;
+                    padding: 0;
+                    line-height: 32px;
+                    @media screen and (max-width: $breakpoint-tablet){
+                        font-size: 0;
+                    }
+                    &::after {
+                        content: "Toca un elemento para eliminarlo";
+                        position: absolute;
+                        left: 19px;
+                        bottom: 46%;
+                        color: $gray;
+                        font-family: $basefont;
+                        font-size: 12px;
+                        font-weight: 400;
+                        text-align: left;
+                        @media screen and (max-width: $breakpoint-tablet){
+                            top: 0;
+                            left: 25px;
+                        }
+                    }
+                }
+                .selected-items {
+                    width: 480px;
+                    margin: 0 auto;
+                    position: relative;
+                    top: -40px;
+                    height: 100px;
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-box-orient: horizontal;
+                    -webkit-box-direction: normal;
+                        -ms-flex-flow: row wrap;
+                            flex-flow: row wrap;
+                    cursor: pointer; 
+                    @media screen and (max-width: $breakpoint-tablet){
+                        top: -20px;
+                    }
+                    div {
+                        width:calc(25% - 1.25rem);
+                        margin-right:.625rem;
+                        margin-left:.625rem;
+                        height:100%;
+                        text-align:center;
+                        position:relative;
+                        @media screen and (max-width: $breakpoint-tablet){
+                            width: 60px;
+                        }
+                        &:hover:after {
+                            content:"";
+                            width:100%;
+                            height:100%;
+                            background-color:#ffffff44;
+                            position:absolute;
+                            top:0;
+                            left:0;
+                            color:#fff;
+                            font-size:16px;
+                            text-align:right;
+                            padding-right:10px;
+                            padding-top:0;
+                            font-family: $basefont;
+                            border:2px solid #70707055;
+                            background-image:url("/arquivos/close-gray.png");
+                            background-repeat:no-repeat;
+                            background-position-x:calc(100% - 10px);
+                            background-position-y:10px; 
+                        }
+                    }
+                    img {
+                        height:100%; 
+                        @media screen and (max-width: $breakpoint-tablet){
+                            height: auto;
+                        }
+                    }            
+                }
+                &.show {
+                    height: 130px;
+                    @media screen and (max-width: $breakpoint-tablet){
+                        height: 140px; 
+                    }
+                }
+            }
+        }
+        .filterBy {
+            display: none;
+        }
+    }
+    //Titulo de categoria
+    .title-category {
+        border-bottom: none;
+        margin: 0;
+        padding: 0;
+        .titulo-sessao {
+            color: $greentuiss;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 14px;
+            text-align: center;
+            text-transform: uppercase;
+            @media screen and (max-width: $breakpoint-tablet) {
+                text-align: left;
+                display: none;
+            }
+        }
+    }
+    //Filtros
+    .menu-buttom-mobile {
+        h2 {
+            display: none;
+            @media screen and (max-width: $breakpoint-tablet) {
+                border: 1px solid $graybg1;
+                border-radius: 35px;
+                font-size: 12px;
+                font-weight: 400;
+                text-align: center;
+                display: block;
+                text-transform: uppercase;
+                padding: 8px 0;
+                margin-top: 0;
+                &::after {
+                    content: "";
+                    border: solid $gray;
+                    border-width: 1px 1px 0 0;
+                    display: inline-block;
+                    padding: 5px;
+                    position: absolute;
+                    right: 30px;
+                    top: 15px;
+                    transform: translateY(-50%) rotate(45deg);
+                }
+            }
+        }
+    }
+    .navigation-tabs {
+        background: none;
+        @media screen and (max-width: $breakpoint-tablet) {
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            z-index: 9999999;
+            width: 79%;
+            background-color: $white;
+            display: none;
+            &.activeMobile {
+                -webkit-animation-name: showFilter;
+                animation-name: showFilter;
+                -webkit-animation-duration: .500s;
+                animation-duration: .500s;
+                display: block;
+            }
+        }
+        .closeFilters {
+            position: absolute;
+            left: -10%;
+            top: 3%;
+        }
+    }
+    .menu-departamento {
+        .menu-navegue {
+            display: none;
+        }
+        .search-multiple-navigator {
+            @media screen and (max-width: $breakpoint-tablet) {
+                padding: 40px 10px 0;
+                position: relative;
+                height: 560px;
+            }
+            .bt-refinar {
+                display: none;
+            }
+            h3 {
+                font-size: 0;
+                @media screen and (max-width: $breakpoint-tablet) {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: flex;
+                    width: 100%;
+                    margin-top: 0;
+                }
+                &::after {
+                    content: "Filtrar por";
+                    color: $gray;
+                    font-size: 18px;
+                    font-weight: 700;
+                    line-height: 40px;
+                    text-align: left;
+                    text-transform: uppercase;
+                    @media screen and (max-width: $breakpoint-tablet) {
+                        background-color: #b5cf52;
+                        color: #fff;
+                        padding: 0 22px;
+                        font-size: 14px;
+                        text-align: left;
+                        text-transform: uppercase;
+                        font-weight: 700;
+                        width: 100%;
+                    }
+                }
+                a {
+                    display: none;
+                }
+            } 
+            h4 {
+                display: none;
+                @media screen and (max-width: $breakpoint-tablet) {
+                    position: absolute;
+                    bottom: 0;
+                    display: inline-block;
+                    color: #fff;
+                    font-size: 0;
+                    font-weight: 500;
+                    text-align: center;
+                    background-color: $gray;
+                    padding: 7px 10px;
+                    a::before {
+                        color: #fff;
+                        font-size: 0;
+                        content: "LIMPIAR FILTROS";
+                        font-size: 12px;
+                    }
+                }
+            }
+            .aplica-filtro {
+                font-size: 12px;
+                right: 10px;
+                background-color: $black;
+                &::before {
+                    content: "";
+                }
+            }
+            .refino {                    
+                @media screen and (max-width: $breakpoint-tablet) {
+                    border-bottom: 1px solid $graybg1;
+                }
+                h5 {
+                    color: $gray;
+                    font-size: 14px;
+                    font-weight: 700;
+                    line-height: 35px;
+                    margin: 5px 0;
+                    @media screen and (max-width: $breakpoint-tablet) {
+                        cursor: pointer;
+                        position: relative;
+                        &::after {
+                            content: "";
+                            border: solid #b5cf52;
+                            border-width: 0 1px 1px 0;
+                            display: inline-block;
+                            padding: 5px;
+                            position: absolute;
+                            right: 6px;
+                            top: 13px;
+                            transform: translateY(-50%) rotate(45deg);
+                        }
+                        &.active::after {
+                            content: "";
+                            border: solid #b5cf52;
+                            border-width: 1px 0 0 1px;
+                            display: inline-block;
+                            padding: 5px;
+                            position: absolute;
+                            right: 6px;
+                            top: 20px;
+                            transform: translateY(-50%) rotate( 45deg );
+                        }
+                    }
+                }
+                h5 + div {
+                    border-top: 1px solid $graybg1;
+                    border-bottom: 1px solid $graybg1;
+                    padding: 10px 0;
+                    @media screen and (max-width: $breakpoint-tablet) {
+                        border-top: 0;
+                        border-bottom: 0;
+                        display: none;
+                    }
+                    label {
+                        color: $gray;
+                        font-size: 14px;
+                        font-weight: 400;
+                        display: flex;
+                        align-items: flex-end;
+                        line-height: 20px;
+                        text-align: left;
+                        position: relative;
+                        margin-left: 20px;
+                        p {
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            border: 1px solid $graybg1;
+                            margin: 1px 8px 0;
+                            &.nombreColor {
+                                border: 0;
+                                color: $gray;
+                                font-size: 14px;
+                                font-weight: 400;
+                                line-height: 20px;
+                                margin: 0;
+                                width: auto;
+                            }
+                        }
+                        input {
+                            display: none;
+                        }
+                        &::before {
+                            content: "";
+                            width: 16px;
+                            height: 15px;
+                            border: none;
+                            background-image: url(/arquivos/compare-icon.png);
+                            display: inline-block;
+                            position: absolute;
+                            top: 3px;
+                            left: -21px;
+                        }
+                        &.sr_selected {
+                            &::before {
+                                content: "";
+                                width: 16px;
+                                height: 15px;
+                                border: none;
+                                background-image: url(/arquivos/compare-icon-check.png);
+                                display: inline-block;
+                                position: absolute;
+                                top: 3px;
+                                left: -21px;
+                            }
+                        }
+                    } 
+                }
+            }
+            .filtro_100_colores,  .filtro_101_colores {
+                h5 + div {
+                    label {
+                        font-size: 0;
+                    }
+                }                
+            }
+            .refino-marca {
+                display: none;
+            }
+        }
+    }
+    #admake-advanced-filter {
+        display: none !important;
+        border: none;
+        @media screen and (max-width: $breakpoint-tablet) {
+            margin-top: 45px;
+            padding: 0 15px;
+        }
+        h2 {
+            font-size: 0;
+            @media screen and (max-width: $breakpoint-tablet) {
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: flex;
+                width: 100%;
+            }
+            &::after {
+                content: "Filtrar por";
+                color: $gray;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 40px;
+                text-align: left;
+                text-transform: uppercase;
+                @media screen and (max-width: $breakpoint-tablet) {
+                    background-color: #b5cf52;
+                    color: #fff;
+                    padding: 0 22px;
+                    font-size: 14px;
+                    text-align: left;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    width: 100%;
+                }
+            }
+            a {
+                display: none;
+            }
+        } 
+        .box-filtro {
+            border: none;
+            padding: 0;           
+            .sub-titulo {
+                h3 {
+                    color: $gray;
+                    font-size: 14px;
+                    font-weight: 700;
+                    line-height: 35px;
+                    margin: 5px 0;
+                }
+            }
+            .opcoes {
+                border-top: 1px solid $graybg1;
+                border-bottom: 1px solid $graybg1;
+                padding: 10px 0;
+                ul {
+                    padding-left: 20px;
+                }
+                li {
+                    &.last {
+                        display: none;
+                        &:first-child {
+                            display: block;
+                        }
+                    }
+                    a {
+                        color: $gray;
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 30px;
+                        p {
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            border: 1px solid $graybg1;
+                            margin: 1px 8px 0;
+                        }
+                        .fa-square-o {
+                            position: relative;
+                            &::before {
+                                content: "";
+                                width: 16px;
+                                height: 15px;
+                                border: none;
+                                background-image: url(/arquivos/compare-icon.png);
+                                display: inline-block;
+                                position: absolute;
+                                top: -14px;
+                                left: -21px;
+                            }
+                        }
+                    }
+                    .fa-check-square-o {
+                        position: relative;
+                        &::before {
+                            content: "";
+                            width: 16px;
+                            height: 15px;
+                            border: none;
+                            background-image: url(/arquivos/compare-icon-check.png);
+                            display: inline-block;
+                            position: absolute;
+                            top: -14px;
+                            left: -21px;
+                        }
+                    }
+                } 
+                .ver-filtros {
+                    position: absolute;
+                    left: 0;
+                    bottom: -42px;
+                    &::after {
+                        @media screen and (max-width: $breakpoint-tablet) {
+                            content: "Limpiar filtros";
+                            color: $white;
+                            font-family: "TT Norms Pro";
+                            font-size: 12px;
+                            font-weight: 700;
+                            text-align: center;
+                            text-transform: uppercase;
+                            background-color: $graybg1;
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            padding: 7px;
+                        }
+                    }
+                }
+            }
+            &.filtro-privacidad {
+                li.last {
+                    display: block;
+                }
+            }
+        }
+    }
+    .showcase-default {
+        padding: 0 0 20px;
+    }
+}
+
+.pager {
+    display: none;
+}
+
+#cargarproducto {
+    color: $gray;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+    padding-bottom: 50px;
+}
+
+body.filtro-activo:before {
+    background-color: rgba(0,0,0,0.85);
+    content: "";
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+}
+.tuiss-search-result {
+    .searchResultsTime {
+        top: -20px;
+        @media screen and (max-width: $breakpoint-tablet) {
+            top: -35px;
+        }
+    }
+}
+
+//animation
+@-webkit-keyframes showFilter {
+    from { right: -70%; }
+    to { right: 0; }
+}
+@keyframes showFilter {
+    from { right: -70%; }
+    to { right: 0; }
+}
+@-webkit-keyframes hideFilter {
+    from { right: 0; }
+    to { right: -70%; }
+}
+@keyframes hideFilter {
+    from { right: 0; }
+    to { right: -70%; }
+}
+
+#departament-navegador .menu-departamento, .search-multiple-navigator {
+    display: block !important;
+}
+.search-single-navigator {
+    display: none !important;
+}

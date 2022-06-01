@@ -1,0 +1,175 @@
+#set($id = $product.Id)
+#set($idSku = $product.productVariantId)
+#set($uri = $product.Uri)
+#set($escapedName = $product.HtmlEscapedName)
+#set($evaluationRate = $product.EvaluationRate)
+#set($textura = $product.ProductField(27))
+
+#if ($product.IsInStock)
+<div id="product-$id" class="box-item text-center" data-idproduct="$id" data-urlproduct="$uri">
+#else
+<div id="product-$id" class="box-item text-center product-off" data-idproduct="$id" data-urlproduct="$uri">
+#end
+
+    <span id='productID-oculto' style="display:none;">$id</span>
+    <span id='skuID-oculto' style="display:none;">$idSku</span>
+    <span id='linkID-oculto' style="display:none;">$uri</span>
+
+    <div class="productItem__image">
+        #if($product.HightLight)
+            <div class="flagDestaque">
+                $product.HightLight
+            </div>
+        #else 
+            <div class="flagDestaque notShow"></div>
+         #end
+        <div class="flags">
+            <span class="flags__discount">$product.ListPriceMinusBestPriceInPercent</span>
+        </div>
+        <!--Share-->
+        <div class="share">
+            <img src="/arquivos/share-icon.png">
+            <div class="BtnShare" style="display:none">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" class="btn-share share-item fbButton" id="fbButton">
+                    <span class="icon-sharefb-icon"></span>fbButton
+                </a>
+                <button value="$uri" class="btn-share share-item link" id="link">
+                    <span class="icon-shareproductlink-icon"></span> $uri
+                </button>
+                <a href="https://api.whatsapp.com/send?text=" target="_blank" class="btn-share share-item whatsapp" id="whatsapp">
+                    <span class="icon-icon-sharewp-icon"></span>whatsapp
+                </a>
+            </div>
+        </div>
+        <a class="product-image" title="$escapedName" href="$uri">
+            $product.GetImageTag(2)
+        </a>
+        <div class="btnQuickview">
+            $product.QuickView
+        </div>
+    </div>
+    <div class="product-texture">
+        $textura
+    </div>
+    
+    <div class="product-name">
+        <span class="product-name-short">$product.DescriptionShort</span>
+        <a title="$escapedName" href="$uri">
+            $product.Name
+        </a>
+    </div>
+    <!-- Colores -->
+    <!--<div class="similar-colors-vitrine"></div>-->
+    <!-- Colores -->
+    #if ($product.IsInStock)
+        <div class="price">
+            <a title="$escapedName" href="$uri">
+                #if ($product.HasBestPrice)
+                    <span class="best-price">
+                        Desde <span>$product.BestPrice</span> m²
+                    </span>
+                    <span class="old-price">
+                        Desde <span>$product.ListPrice</span> m²
+                    </span>
+                #else
+                    <span class="best-price">
+                        Desde <span>$product.BestPrice</span> m²
+                    </span>                    
+                #end
+                #if ($product.NumbersOfInstallment > 1)
+                    <span class="installment">
+                        ou ${product.NumbersOfInstallment}x de $product.InstallmentValue
+                    </span>
+                #end
+            </a>
+        </div>
+        <!--Evaluaciones-->
+        <div class="meanAssessment">
+            <a href="$link#ancla-comentario" class="link-ancora">$evaluationRate</a>
+        </div>
+        <a href="$uri" class="btn-showproduct">VER PRODUCTO</a>
+        <div class="product-compare">
+            $product.Compare
+        </div>
+    #else
+        <span class="out-of-stock">Produto Esgotado</span> 
+    #end
+    
+<script>
+    $(document).ready(function(){
+        vtexjs.catalog.getProductWithVariations($id).done(function(product){
+            $(document).trigger("Product:Render",product);
+        });
+    });
+        
+    if (typeof window.replaceDecimals === 'undefined') {
+        function replaceDecimals(priceString, elementsArray) {
+            if (priceString) {
+                for (var i = 0, len = elementsArray.length; i < len; i++) {
+                    elementsArray[i].innerHTML = priceString.replace(/\s/, '').replace(",00", '').replace(",0", '');
+                }
+            }
+        };
+    }
+    
+    #if ($product.HasBestPrice)
+        var discount = "$product.ListPriceMinusBestPriceInPercent";
+        var formate = parseFloat(discount.replace(",","."));
+        var round = Math.round(formate);
+        
+        replaceDecimals("-"+round+"%", document.querySelectorAll(".flags .flags__discount"));
+    #end
+
+    if (typeof window.replaceAll === 'undefined') {
+    function replaceAll(text, busca, reemplaza) {
+      while (text.toString().indexOf(busca) != -1) {
+          text = text.toString().replace(busca, reemplaza);
+      }
+      return text;
+    }
+    }
+    
+    if (typeof window.cleanNumber === 'undefined') {
+    function cleanNumber(numberString) {
+      numberString = replaceAll(numberString, "$", '');
+      numberString = replaceAll(numberString, ".", '');
+      numberString = replaceAll(numberString, ",", '.');
+      return Number(numberString);
+    }
+    }
+    
+    var bestPrice = "$product.BestPrice";
+    replaceDecimals(bestPrice, document.querySelectorAll("#product-$id .best-price span"));
+    
+    var listPrice = "$product.ListPrice";
+    replaceDecimals(listPrice, document.querySelectorAll("#product-$id .old-price span"));
+    
+     //Validar comentarios
+    if( document.querySelectorAll("#product-$id .meanAssessment a").length > 0 ){
+        var rate_ = document.querySelectorAll("#product-$id .meanAssessment a")[0].innerHTML;
+        var element = document.querySelectorAll("#product-$id .meanAssessment");
+        if(rate_ == 0){
+        element[0].className += " cero";
+        }
+        if(rate_ == 1){
+        element[0].className += " uno";
+        }
+        if(rate_ == 2){
+        element[0].className += " dos";
+        }
+        if(rate_ == 3){
+        element[0].className += " tres";
+        }
+        if(rate_ == 4){
+        element[0].className += " cuatro";
+        }
+        if(rate_ == 5){
+        element[0].className += " cinco";
+        }
+        if(rate_ == 6){
+        element[0].className += " seis";
+        }
+    }
+</script>    
+    
+</span>

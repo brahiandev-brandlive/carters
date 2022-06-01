@@ -1,0 +1,279 @@
+<!-- 
+ *
+ * Desenvolvido por Integrando.se
+ * hello@integrando.se
+ * 
+ * Bootstrap v.3
+ *
+ -->
+
+ <!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml" xmlns:vtex="http://www.vtex.com.br/2009/vtex-common" xmlns:vtex.cmc="http://www.vtex.com.br/2009/vtex-commerce" lang="en-us">
+ 
+     <head>
+         <title> Modelo Vtex</title>
+         <vtex:metaTags/>
+         <vtex:template id="commonStyles" />
+         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+     </head>
+ 
+     <body id="product-page">
+ 
+         <div class="page">
+ 
+             <!--  SubTemplate: Header -->
+             <vtex:template id="Tuiss-header" />
+             <!-- /SubTemplate: Header -->
+                         
+             <div id="product-extra-top"></div>  
+ 
+             <section id="product-content" class="container">
+ 
+                 <div id="box-bread-brumb" class="hidden-xs">
+                     <vtex.cmc:breadCrumb />
+                 </div>
+                         
+                 <div id="product-extra-middle"></div>  
+ 
+                 <div class="row product-details">
+ 
+                     <div class="product-image col-xs-12 col-md-6 col-lg-6 text-center">
+                         <vtex.cmc:discountHightLight/>
+                         <vtex.cmc:HightLight/>
+                         <!--  Component: Product Images -->
+                         <vtex.cmc:ProductImage zoom="on"/>
+                         <div class="product-info-garantia">
+                             <p>Conoce la política de garantía de nuestros productos</p>
+                             <a href="#">Descargar</a>
+                         </div>
+                     </div><!-- .product-image -->
+ 
+                     <div class="product-info col-xs-12 col-md-6 col-lg-6">
+ 
+                         <div class="product-name">
+                             <h1>
+                                 <vtex.cmc:productName />
+                             </h1>
+                             <p>
+                                 <vtex.cmc:ProductDescription />
+                             </p>
+                         </div>
+ 
+                         <div class="row ">
+                             <div class="codigo-produto col-xs-12 col-lg-6" style="display:none">
+                                 <span>Cód:</span> <vtex.cmc:skuReference/>
+                             </div>
+                             <div class="col-xs-12 col-md-6">
+                                 <div class="avaliacoes"><a href="#reviews" class="link-ancora"><vtex.cmc:evaluationRate/></a></div>
+                             </div>
+                             <div class="col-xs-12 col-md-6 product-free-sample">
+                                 <a href="#">Pedir muestra de tela <span>(Gratis)</span></a>
+                             </div>        				
+                         </div>
+ 
+                         <div class="seletor-sku">
+                             <div class="seletor-sku-colores">
+                                 <vtex.cmc:stockKeepingUnitSelection />
+                                 <div class="other-colors-sku">
+                                     <vtex:contentPlaceHolder id="colores" />						    
+                                 </div>                                
+                             </div>
+                             <div class="measures-sku">
+                                 <p class="measures-sku-specification specification">MEDIDAS</p>
+                                 <div class="measures-sku-insert-values">
+                                     <p>Ancho en cm</p>
+                                     <input type="text" size="5" id="insert-width-quantity" maxlength="5" placeholder="50 hasta 500 cm"/>
+                                 </div>
+                                 <div class="measures-sku-insert-values">
+                                     <p>Alto en cm</p>
+                                     <input type="text" size="5" id="insert-height-quantity" maxlength="5" placeholder="50 hasta 500 cm"/>
+                                 </div>
+                                 <div class="instalacion-prod">
+                                     <p>Tus medidas corresponden a:</p>
+                                     <div class="instalacion-prod-opc">
+                                         <div class="instalacion-prod-opc-item">
+                                             <p>Por dentro del marco</p>
+                                             <input type="radio" class="radio-sku" value="DVP" name="ubicacion_del _mando" id="dentro-marco"/>
+                                         </div>
+                                         <div class="instalacion-prod-opc-item">
+                                             <p>Por fuera del marco</p>
+                                             <input type="radio" class="radio-sku" value="FVP" name="ubicacion_del _mando" id="fuera-marco"/>
+                                         </div>    				            
+                                     </div>
+                                 </div>						    
+                                 <a href="#" class="measures-sku-price-btn">Obtener precio</a>
+                             </div>
+                             <div class="opcionales-sku">
+                                 <vtex:contentPlaceHolder id="personalizar" />						    
+                             </div>
+                             <div class="ubicacion-mando">
+                                 <p>Ubicación del mando</p>
+                                 <div class="ubicacion-mando-opc">
+                                     <div class="ubicacion-mando-opc-item">
+                                         <p>Izquierdo</p>
+                                         <input type="radio" class="radio-sku" value="IZQ" name="ubicacion_del _mando" id="mando-izq"/>
+                                     </div>
+                                     <div class="ubicacion-mando-opc-item">
+                                         <p>Derecho</p>
+                                         <input type="radio" class="radio-sku" value="DER" name="ubicacion_del _mando" id="mando-der"/>
+                                     </div>    				            
+                                 </div>
+                             </div>
+                         </div><!-- .seletor-sku -->
+                         
+                         <div class="price-box">
+                             <!--  Component: Price -->
+                             <vtex.cmc:skuPrice />
+                         
+                             <!--  Component: Addicional services -->
+                             <vtex.cmc:stockKeepingUnitService />
+                         </div><!-- .price-box -->					
+ 
+                         <div class="buy-button-box hidden-xs">
+                             <vtex.cmc:BuyButton />
+                         </div><!-- .buy-button-box -->
+                         
+                         <div class="row product-shareandwishlist">
+                             <div id="produc-wishlist" class="col-xs-12 col-md-6">
+                                 <a href="#" class="wishlist"><img src="/arquivos/wishlist-icon-pdp.png"/>Agregar a lista de deseos</a>
+                             </div>
+                             <div class="product-share-links col-xs-12 col-md-6">
+                                 <p>Compartir</p>
+                                 <a href="https://api.whatsapp.com/send?text=" target="_blank" class="btn-share share-item whatsapp" id="whatsapp">
+                                     <img src="/arquivos/wp-icon-pdp.png" alt="Compartir Whatsapp"/>
+                                 </a>                           
+                                 <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" class="btn-share share-item fbButton" id="fbButton">
+                                     <img src="/arquivos/fb-icon-pdp.png" alt="Compartir Facebook"/>
+                                 </a>
+                                 <a href="#" target="_blank" class="btn-share share-item igButton" id="igButton">
+                                     <img src="/arquivos/ig-icon-pdp.png" alt="Compartir Instagram"/>
+                                 </a>
+                                 <a href="#" target="_blank" class="btn-share share-item mailButton" id="mailButton">
+                                     <img src="/arquivos/mail-icon-pdp.png" alt="Compartir por Email"/>
+                                 </a>                        
+                                 <button value="$uri" class="btn-share share-item link" id="link">
+                                     <img src="/arquivos/link-icon-pdp.png" alt="Compartir link"/>
+                                 </button>
+                             </div>					    
+                         </div>
+                         
+                         <div id="product-extra-details-1"></div>  
+ 
+                         <div id="product-extra-details-2"></div>  
+ 
+                     </div><!-- .product-info -->
+ 
+                 </div><!-- .product-details -->
+                         
+                 <div id="product-extra-details-3"></div> 
+                 
+                 <div class="product-how-to-buy">
+                     <p>¿Cómo comprar?</p>
+                     <div class="product-how-to-buy-steps">
+                         <span>1</span>
+                         <p>Selecciona el producto.</p>
+                     </div>
+                     <div class="product-how-to-buy-steps">
+                         <span>2</span>
+                         <p>Escoge la colección y el color.</p>
+                     </div>
+                     <div class="product-how-to-buy-steps">
+                         <span>3</span>
+                         <p>Ingresa medidas.</p>
+                     </div>
+                     <div class="product-how-to-buy-steps">
+                         <span>4</span>
+                         <p>Define los opcionales.</p>
+                     </div>	
+                     <div class="product-how-to-buy-steps">
+                         <span>5</span>
+                         <p>Finaliza la compra.</p>
+                     </div>			    
+                 </div>
+                 
+                 <div class="row">
+                     <div class="product-description col-xs-12 col-md-6">
+                         
+                         <div class="btn-group hidden-xs" role="group" aria-label="menu-anchor">
+                             <a href="#description" class="btn btn-default" data-toggle="tab">Descripción</a>
+                             <a href="#specification" class="btn btn-default" data-toggle="tab">Especificaciones</a>
+                             <a href="#measures" class="btn btn-default" data-toggle="tab">Medidas</a>
+                             <a href="#installation" class="btn btn-default" data-toggle="tab">Instalación</a>
+                         </div>
+                         
+                         
+                         <ul class="nav-tabs" role="tablist">
+                             <li class="product-description-title active"><a href="#description" class="btn btn-default" data-toggle="tab">Descripción</a></li>
+                             <li class="product-description-title active"><a href="#specification" class="btn btn-default" data-toggle="tab">Especificaciones</a></li>
+                             <li class="product-description-title active"><a href="#measures" class="btn btn-default" data-toggle="tab">Medidas</a></li>
+                             <li class="product-description-title active"><a href="#installation" class="btn btn-default" data-toggle="tab">Instalación</a></li>
+                         </ul>
+         
+         
+                         <div id="product-extra-description-1"></div>  
+         
+                         <div class="product-description-box">
+                             <!--  Component: Cross selling -->
+                             <vtex.cmc:BuyTogether/>
+                         </div>
+         
+                         <div id="product-extra-description-2"></div>  
+         
+                         <div class="product-description-box">
+                             <div id="description">
+                                 <!--  Component: Description -->
+                                 <vtex.cmc:ProductDescription />
+                             </div><!-- .description -->
+                         </div>
+         
+                         <div id="product-extra-description-3"></div>  
+         
+                         <div class="product-description-box">
+                             <div id="specification">
+                                 <!--  Component: Specification -->
+                                 <vtex.cmc:productSpecification />
+                             </div><!-- .description -->
+                         </div>
+         
+                         <div id="product-extra-description-4"></div>  
+         
+                         <div class="product-description-box">
+                             <div id="measures">
+                             </div>
+                         </div>
+         
+                         <div id="product-extra-description-5"></div>  
+         
+                         <div class="product-description-box">
+                             <div id="installation">
+                             </div>
+                         </div>
+                         
+                     </div><!-- .product-description -->
+                     
+                     <div id="reviews" class="rating col-xs-12 col-md-6">
+                         <vtex.cmc:UserReview/>
+                     </div>			    
+                 </div>
+                 
+                 <div id="product-extra-description-5"></div>  
+ 
+                 <div class="showcase-default showcase-carrusel">
+                     <vtex:contentPlaceHolder id="sugeridos" />
+                 </div><!-- .showcase-default -->
+ 
+             </section>
+                         
+             <div id="product-extra-bottom"></div>  
+             
+             <!--  SubTemplate: Footer -->
+             <vtex:template id="Tuiss-footer" />
+             <!-- /SubTemplate: Footer -->
+ 
+         </div><!-- .container-fluid -->
+ 
+     </body>
+     <vtex:template id="commonScripts" />
+     <script src="/arquivos/product.min.js"></script>
+ </html>

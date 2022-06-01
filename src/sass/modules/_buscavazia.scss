@@ -1,0 +1,155 @@
+.buscavazia {
+    &-content {
+        background-color: $graybg2;
+        padding: 30px 20px;
+        @media screen and (min-width: $breakpoint-desktop){
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+        p:first-child {
+            color: $gray;
+            font-size: 50px;
+            font-weight: 700;
+        }
+        h1 {
+            color: $gray;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 18px;
+        }
+        &-text {
+            color: $gray;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 14px;       
+            @media screen and (min-width: $breakpoint-desktop){
+                width: 610px;
+            }  
+        }
+        a {
+            background-color: $black;
+            color: $white;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            width: 243px;
+            height: 31px;
+            margin: 25px auto 0;
+            line-height: 30px;
+        }
+    }
+    &-inspiracion {
+        width: 100%;
+        margin: 0 auto;
+        padding: 30px 0 0;
+        font-family: $basefont;  
+        &-mobile {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0 15px 15px;
+            .destacado-item {
+                border-radius: 6px;
+                border: 1px solid #e5e5e5;
+                background-color: $white;
+                padding: 10px;
+                width: 48%;
+                margin-bottom: 3%;
+                img {
+                    object-fit: cover;
+                }
+                h3 {
+                    color: $black;
+                    font-size: 14px;
+                    font-weight: 700;
+                    line-height: 20px;
+                    text-align: left;
+                    margin: 5px 0;
+                }
+                .btn-destacados {
+                    border-radius: 3px;
+                    background-color: $greentuiss;
+                    color: $white;
+                    padding: 4px;
+                    margin: 0;
+                    text-align: center;
+                }
+            }
+        }
+        h2 {
+            color: $greentuiss;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 18px;
+            text-align: left;
+            text-transform: uppercase;
+            padding: 0 0 15px;
+            margin: 0;
+            @media screen and (min-width: $breakpoint-desktop) {
+                color: $gray;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 18px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+        }
+        &-desktop {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 45px;
+            .destacado-item-desktop {
+                position: relative;
+                h3 {
+                    color: $white;
+                    font-size: 35px;
+                    font-weight: 700;
+                    line-height: 29px;
+                    text-align: left;
+                    text-transform: uppercase;
+                    position: absolute;
+                    bottom: 40px;
+                    left: 28px;
+                }
+                .btn-destacados {
+                    color: $white;
+                    font-size: 11px;
+                    font-weight: 400;
+                    text-align: left;
+                    text-decoration: underline;
+                    position: absolute;
+                    bottom: 15px;
+                    left: 30px;
+                }
+                img {
+                    position: relative;
+                }
+            }
+            .destacado-big {
+                h3 {
+                    bottom: 100px;
+                    left: 50px;
+                }
+                .btn-destacados {
+                    bottom: 40px;
+                    left: 50px;
+                }
+            }
+            .destacado-item-desktop-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                &-two {
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+        }            
+    }
+}
+

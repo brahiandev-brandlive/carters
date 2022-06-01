@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:vtex="http://www.vtex.com.br/2009/vtex-common" xmlns:vtex.cmc="http://www.vtex.com.br/2009/vtex-commerce">
+
+<head>
+    <title> Modelo Vtex</title>
+    <vtex:metaTags/>
+    <vtex:template id="faces-commonStyles" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/arquivos/slick.css" rel="stylesheet" type="text/css" />
+    <link href="/arquivos/facescr.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body id="home-page">
+    <!--  SubTemplate: Header -->
+    <vtex:template id="faces-Header" />
+    <!-- /SubTemplate: Header -->
+    <main class="mainContent">
+        <div class="mainContent__mainBanner">
+            <div class="mainContent__mainBanner--content">
+                <vtex:contentPlaceHolder id="Banner-Principal" />
+            </div>
+        </div>
+        <div class="container">
+            <div class="mainContent__brands">
+                <vtex:contentPlaceHolder id="brands" />
+            </div>
+            <div class="mainContent__mediumBanner">
+                <vtex:contentPlaceHolder id="mediumBanner" />
+            </div>
+            <div class="mainContent__bestSellers">
+                <vtex:contentPlaceHolder id="bestSellers" />
+            </div>
+            <div class="mainContent__tendences">
+                <vtex:contentPlaceHolder id="tendences" />
+            </div>
+            <div class="mainContent__brandsSellers">
+                <vtex:contentPlaceHolder id="brandsSellers" />
+            </div>
+        </div>
+    </main>
+    <!--  SubTemplate: Footer -->
+    <vtex:template id="faces-Footer" />
+    <!-- /SubTemplate: Footer -->
+
+
+    <td class="modificar-producto">
+        <h2 class="nombre-producto">{!productName}</h2>
+        <div class="measures-sku">
+            <p>Medidas</p>
+            <div class="measures-sku-insert">
+                <input type="text" size="5" value="{!ancho}" name="ancho-{!sku}" class="measures-sku-insert-values" maxlength="5" placeholder="Ancho">
+                <input type="text" size="5" value="{!alto}" name="alto-{!sku}" class="measures-sku-insert-values" maxlength="5" placeholder="Alto">
+            </div> 
+            <div class="buy-error-info"></div>
+        </div>
+        <div class="instalacion-prod">
+            <p>Tus medidas corresponden a:</p>
+            <div class="instalacion-prod-opc">
+                <div class="instalacion-prod-opc-item">
+                    <p>Por dentro del marco <img src="/arquivos/question-mark.png" class="btn-info-help-dvp btn-info-help" alt="información"></p>
+                    <input type="radio" class="radio-sku" data-value="DVP-{!sku}" value="DVP" name="instalacion-{!sku}" id="dentro-marco-{!sku}">
+                    <label for="dentro-marco-{!sku}">DVP</label>
+                </div>
+                <div class="instalacion-prod-opc-item">
+                    <p>Por fuera del marco <img src="/arquivos/question-mark.png" class="btn-info-help-fvp btn-info-help" alt="información"></p>
+                    <input type="radio" class="radio-sku" data-value="FVP-{!sku}" value="FVP" name="instalacion-{!sku}" id="fuera-marco-{!sku}">
+                    <label for="fuera-marco-{!sku}">FVP</label>
+                </div>
+            </div>
+        </div>
+        <div class="variacion-colores" id="variacion-colores-{!sku}">
+            <p>Color</p>
+            <div class="variacion-colores-contenedor">
+            </div>
+        </div>
+        <div class="opcionales-prod motorizada">
+            <p>Motorizada</p>
+            <p class="price">$708.050</p>
+            <div class="opcionales-check">
+                <input type="checkbox" value="motor" data-value="motor-{!sku}" name="motor-{!sku}" class="radio-sku opcionale" id="motor-{!sku}">
+                <label for="motor-{!sku}">motor</label>
+            </div>
+        </div>
+        <div class="opcionales-prod cenefa">
+            <p>Cenefa</p>
+            <p class="price">$708.050</p>
+            <div class="opcionales-check">
+                <input type="checkbox" value="cenefa" data-value="cenefa-{!sku}" name="cenefa-{!sku}" class="radio-sku opcionale" id="cenefa-{!sku}">
+                <label for="cenefa-{!sku}">cenefa</label>
+            </div>
+        </div>
+        <div class="ubicacion-mando">
+            <p>Ubicación del mando <img src="/arquivos/question-mark.png" class="btn-info-help-mando btn-info-help" alt="información"></p>
+            <div class="ubicacion-mando-opc">
+                <div class="ubicacion-mando-opc-item">
+                    <p>Izquierdo</p>
+                    <input type="radio" class="radio-sku" data-value="IZQ-{!sku}" value="IZQ" name="ubicacion_del_mando-{!sku}"  id="mando-izq-{!sku}"><label for="mando-izq-{!sku}">IZQ</label>
+                </div>
+                <div class="ubicacion-mando-opc-item">
+                    <p>Derecho</p>
+                    <input type="radio" class="radio-sku" data-value="DER-{!sku}" value="DER" name="ubicacion_del_mando-{!sku}" id="mando-der-{!sku}"><label for="mando-der-{!sku}">DER</label>
+                </div>
+            </div>
+        </div>
+        <span class="guardar-info">GUARDAR</span>              
+    </td>
+
+
+</body>
+    <vtex:template id="faces-commonScripts" />
+    <script src="/arquivos/slick.min.js"></script>
+    <script src="/arquivos/home.min.js"></script>
+</html>

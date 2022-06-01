@@ -1,0 +1,177 @@
+//Estilos página de comparador
+.compare {
+    //Header
+    .fulltext-search-box.ui-autocomplete-input {
+        @media screen and (min-width: $breakpoint-desktop) {
+            width: 81%;
+        }
+    }
+    #compare {
+        display: flex;
+        flex-direction: column;
+        //Titulo
+        h2 {
+            color: $gray;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 14px;
+            text-align: left;
+            text-transform: uppercase;
+            margin-left: 15px;
+            @media (min-width: 1200px) {
+                width: 1170px;
+                margin: 20px auto;
+            }
+        }
+        .comparar-outros {
+            font-size: 0;
+            background-color: $graybg2;
+            padding: 20px 0;
+            .bt {
+                background-color: $black;
+                width: 250px;
+                margin: 0 auto;
+                padding: 10px;
+                text-align: center;
+                @media screen and (min-width: $breakpoint-desktop) {
+                    width: 400px;
+                }
+                &::before {
+                    content: "VOLVER";
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: $white;
+                }
+            }
+        }
+        //Botón volver
+        .topWrapper {
+            order: -1;
+            margin-left: 15px;
+            @media (min-width: 1200px) {
+                width: 1170px;
+                margin: 0 auto;
+            }
+            .info {
+                display: none;
+            }
+            .comparar-outros {
+                display: none;
+            }
+        }
+        //Comparador
+        .corpo-comparacao {
+            background-color: $graybg2;
+            padding: 15px 0;
+            @media screen and (max-width: $breakpoint-tablet) {
+                overflow: scroll;
+                width: 100%;
+            }
+            table {
+                @media (min-width: 1200px) {
+                    width: 1170px;
+                    margin: 0 auto;
+                }
+            }
+            thead {
+                tr:not(.remover) {
+                    th:first-child {
+                        font-size: 0;
+                    }
+                    th:not(:first-child) {
+                        padding: 10px;
+                        @media screen and (max-width: $breakpoint-tablet) {
+                            padding: 0 20px 10px 0;
+                        }
+                        .produto {
+                            background-color: $white;
+                            @media screen and (max-width: $breakpoint-tablet) {
+                                width: 180px;
+                                .n1colunas > ul > li {
+                                    padding: 7px;
+                                }
+                            }
+                        }
+                    }
+                }
+                .remover {
+                    td {
+                        position: relative;
+                        padding: 0 5px;
+                        .remover-produto {
+                            position: absolute;
+                            top: 50px;
+                            right: 30px;
+                            font-size: 0;
+                            background-color: transparent;
+                            border: 0;
+                            z-index: 9;
+                            @media screen and (max-width: $breakpoint-tablet) {
+                                top: 30px;
+                            }
+                            &::before {
+                                content: url("/arquivos/close-compare_.png");
+                            }
+                        }
+                    }
+                }
+            }
+            tbody {
+                tr:not(.Comparador) {
+                    display: none;
+                }
+                // Hide option Motorizable
+                tr:nth-child(12n) {
+                    display: none;
+                }
+                // Change text in Item
+                tr:nth-child(16n) {
+                    th {
+                        font-size: 0px;
+                        content: '';
+
+                        &::before {
+                            content: 'Precio referencial M2';
+                            font-size: 12px;
+                            font-weight: 700;
+                        }
+                    }
+                }
+                .Comparador {
+                    background-color: $graybg2;
+                    border-top: 1px solid $gray;
+                    border-bottom: 1px solid $gray;
+                    th {
+                        color: #5c5c5c;
+                        font-size: 12px;
+                        font-weight: 700;
+                        line-height: 16px;
+                        text-align: left;
+                    }
+                    td {
+                        color: #5c5c5c;
+                        font-size: 12px;
+                        font-weight: 500;
+                        line-height: 16px;
+                        text-align: left;
+                        padding: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+//Miga de pan
+body.compare .page {
+    padding-top: 125px;
+    @media screen and (max-width: $breakpoint-tablet) {
+        padding-top: 93px;
+        .fulltext-search-box {
+            width: 77%;
+        }
+    }
+}
+#category-page.compare #main-content {
+    padding-left: 0;
+    padding-right: 0;
+}

@@ -1,0 +1,177 @@
+<div id="resenha" style="display:none">
+    <div id="opiniao_de_usuario">
+        <div class="user-review">
+            <h4>OPINIONES DE NUESTROS CLIENTES:</h4>
+            <div class="avaliacao">
+                <p class="media">
+                    <span>Calificación promedio:</span>
+                    <em>
+                    <strong id="spnRatingProdutoBottomCustom" class="rating-produto avaliacao0"></strong>
+                    <span> sin voto </span>
+                    </em>
+                </p>
+                <ul class="rating">
+                    <li>
+                        <em class="voteRatingStar">
+                            <strong class="rating-demonstrativo avaliacao50"></strong>
+                        </em>
+                        <span class="voteRatingBar">
+                            <span style="width: 0%"></span>
+                        </span>
+                        <span class="number-votes vote-5">Sin voto</span>
+                    </li>
+                    <li>
+                        <em class="voteRatingStar">
+                            <strong class="rating-demonstrativo avaliacao40"></strong>
+                        </em>
+                        <span class="voteRatingBar">
+                            <span style="width: 0%"></span>
+                        </span>
+                        <span class="number-votes vote-4">Sin voto</span>
+                    </li>
+                    <li>
+                        <em class="voteRatingStar">
+                            <strong class="rating-demonstrativo avaliacao30"></strong>
+                        </em>
+                        <span class="voteRatingBar">
+                            <span style="width: 0%"></span>
+                        </span>
+                        <span class="number-votes vote-3">Sin voto</span>
+                    </li>
+                    <li>
+                        <em class="voteRatingStar">
+                            <strong class="rating-demonstrativo avaliacao20"></strong>
+                        </em>
+                        <span class="voteRatingBar">
+                            <span style="width: 0%"></span>
+                        </span>
+                        <span class="number-votes vote-2">Sin voto</span>
+                    </li>
+                    <li>
+                        <em class="voteRatingStar">
+                            <strong class="rating-demonstrativo avaliacao10"></strong>
+                        </em>
+                        <span class="voteRatingBar">
+                            <span style="width: 0%"></span>
+                        </span>
+                        <span class="number-votes vote-1">Sin voto</span>
+                    </li>
+                </ul>
+                <div class="avalie-produto">
+                    <h5>Califica este producto</h5>
+                    <div class="rating-avalie-wrapper">
+                        <p class="rating-avalie">
+                            <div>
+                                <span class="ratingStar emptyRatingStar">1</span>
+                                <span class="ratingStar emptyRatingStar">2</span>
+                                <span class="ratingStar emptyRatingStar">3</span>
+                                <span class="ratingStar emptyRatingStar">4</span>
+                                <span class="ratingStar emptyRatingStar">5</span>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+                <ul id="ulPubliqueResenha" class="opt">
+                    <li class="publique">
+                        <p id="lnkPubliqueResenha" class="bt">PUBLICAR COMENTARIO</p>
+                    </li>
+                </ul>
+                <div id="userReviewReturnMessages"> </div>
+                <ul class="resenhas">
+                    <div class="quem">
+                    </div>
+                </ul>
+            </div>
+            <div id="userReviewAllComments"></div>
+            <div id="publishUserReview">
+                <form id="formUserReview" method="post">
+                    <div class="header">
+                        <h2>PUBLICAR COMENTARIO</h2>
+                        <div class="close">
+                            <span class="bt btn-thickbox">Cerrar</span>
+                        </div>
+                        <div class="content">
+                            <div class="adicionar-resenha">
+                                <fieldset class="opiniao">
+                                    <div class="grp fNombre">
+                                        <label>Nombre </label>
+                                        <input type="text" class="fitext" id="txtNombreResenha" required="true" size="30" name="txtNombreResenha" value="">
+                                        <span style="color: red;">*</span>
+                                    </div>
+                                    <div class="grp fEmail">
+                                        <label>Email </label>
+                                        <input type="text" class="fitext" id="txtEmailResenha" required="true" size="30" name="txtEmailResenha" value="">
+                                        <span style="color: red;">*</span>
+                                    </div>
+                                    <div class="grp fTitulo">
+                                        <label>Título </label>
+                                        <input type="text" class="fitext" id="txtTituloResenha" size="30" name="txtTituloResenha" value="">
+                                        <span style="color: red;">*</span>
+                                    </div>
+                                    <div class="grp fComentario">
+                                        <label>Opinión </label>
+                                        <textarea name="txtTextoResenha" required="true" id="txtTextoResenha" cols="30" rows="5"></textarea>
+                                        <span style="color: red;">*</span>
+                                    </div>
+                                    <div class="grp fDivulgaEmail checkgroups">
+                                        <input type="checkbox" required="true" name="chkShowUserEmail" unchecked="true" id="chkShowUserEmail" class="ficheckbox">
+                                        <label for="chkShowUserEmail">Acepto política de 
+                                            <a href="https://tuissco.myvtex.com/Politica-de-privacidad" target="_blank">tratamiento de datos y términos y condiciones.</a>
+                                        </label>
+                                    </div>
+                                </fieldset>
+                                <div class="ranking">
+                                    <ul>
+                                        <li class="opiniaoRating">
+                                            <strong class="ratingTitulo">Califica este producto</strong>
+                                        </li>
+                                    </ul>
+                                    <p class="opiniaoInfo">Seleccione un máximo correspondiente a su número de estrellas.
+                                    </p>
+                                    <div class="rating-avalie-wrapper">
+                                        <p class="rating-avalie" id="rating-avalie">
+                                            <input id="rtAvaliacao_SavedRate" type="hidden" value="0" required="true">
+                                            <div>
+                                                <span id="rtAvaliacao_Star_1" class="ratingStar">1</span>
+                                                <span id="rtAvaliacao_Star_2" class="ratingStar">2</span>
+                                                <span id="rtAvaliacao_Star_3" class="ratingStar">3</span>
+                                                <span id="rtAvaliacao_Star_4" class="ratingStar">4</span>
+                                                <span id="rtAvaliacao_Star_5" class="ratingStar">5</span>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="aviso-resenha">
+                                <strong>Atención:</strong><br>Tu comentario está sujeto a evaluación y aprobación por parte del equipo de Tuiss<br>Este es un espacio para su opinión acerca de los productos. No vamos a publicar groserías o términos ofensivos.
+                            </p>
+                            <div class="avaliar">
+                                <input id="btSend" class="bt" value="VALORAR" type="submit" name="btSend"/>
+                                <p class="messageok"></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <hr>
+        </div>        
+    </div>
+</div>
+
+<div class="review-contenido">   
+    <span class="review-contenido__stars"></span>
+    <p class="review-contenido__comment"></p>
+    <p class="review-contenido__name"></p>
+</div>
+
+<p class="media">
+    <span>Calificación promedio:</span>
+    <em>
+    <strong id="spnRatingProdutoBottomCustom" class="rating-produto avaliacao0"></strong>
+    <span> sin voto </span>
+    </em>
+</p>
+
+<a href="#reviews" class="link-ancora">
+    <span id="spnRatingProdutoTopCustom" class="rating-produto avaliacao0">0</span>
+</a>

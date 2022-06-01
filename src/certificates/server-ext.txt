@@ -1,0 +1,8 @@
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = tuissco.vtexlocal.com.br
+DNS.2 = *.tuissco.vtexlocal.com.br
+DNS.3 = tuissco.vtexcommercestable.com.br
+DNS.4 = *.tuissco.vtexcommercestable.com.br

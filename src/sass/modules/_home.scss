@@ -1,0 +1,296 @@
+.home{
+    #home-content {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+
+        &__categories-mobile {
+            padding: 40px 22px 0;
+            margin: 0 auto;
+            .menu-items {
+                display: flex;
+                position: relative;
+                a {
+                    font-family: $basefont;
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 35px;
+                    color: $gray;
+                    &:first-child {
+                        width: 27px;
+                        text-align: center;
+                    }
+                    &:last-child {
+                        margin-left: 15px;
+                    }
+                    &::after {
+                        content: "";
+                        border: solid $gray;
+                        border-width: 1px 1px 0 0;
+                        display: inline-block;
+                        padding: 5px;
+                        position: absolute;
+                        right: 2px;
+                        top: 50%;
+                        transform: translateY(-50%) rotate(45deg);
+                    }
+                }
+            }
+        }
+
+        .home-content__destacados {
+            font-family: $basefont;
+            padding: 23px !important;
+            @media screen and (min-width: $breakpoint-desktop) {
+                padding: 50px 28px 0px !important;
+                padding-top: 30px !important;
+            }
+            .content {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                @media screen and (min-width: $breakpoint-desktop) {
+                    justify-content: space-evenly;
+                }
+                .destacado-item {
+                    border-radius: 6px;
+                    border: 1px solid #e5e5e5;
+                    background-color: $white;
+                    padding: 10px;
+                    width: 48%;
+                    margin-bottom: 3%;
+                    @media screen and (min-width: $breakpoint-desktop) {
+                        width: auto;
+                    }
+                    img {
+                        object-fit: cover;
+                    }
+                    h3 {
+                        color: $black;
+                        font-size: 14px;
+                        font-weight: 700;
+                        line-height: 20px;
+                        text-align: left;
+                        margin: 5px 0;
+                        @media screen and (min-width: $breakpoint-desktop) {
+                            font-size: 16px;
+                            padding: 18px 0;
+                        }
+                    }
+                    .btn-destacados {
+                        border-radius: 3px;
+                        background-color: $greentuiss;
+                        color: $white;
+                        padding: 4px;
+                        margin: 0;
+                        text-align: center;
+                        @media screen and (min-width: $breakpoint-desktop) {
+                            font-size: 21px;
+                        }
+                    }
+                }
+            }
+            h2 {
+                color: $greentuiss;
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 18px;
+                text-align: left;
+                text-transform: uppercase;
+                padding: 0 0 15px;
+                margin: 0;
+                @media screen and (min-width: $breakpoint-desktop) {
+                    color: $gray;
+                    font-size: 18px;
+                    font-weight: 700;
+                    line-height: 18px;
+                    text-align: center;
+                    text-transform: uppercase;
+                }
+            }
+            .content-desktop {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 30px;
+                .destacado-item-desktop-container-two{
+                    
+
+                        .destacado-item-desktop {
+                            position: relative;
+                            width:48%;
+                            height: 95%;
+                            h3 {
+                                color: $white;
+                                font-size: 35px;
+                                font-weight: 700;
+                                line-height: 29px;
+                                text-align: left;
+                                text-transform: uppercase;
+                                position: absolute;
+                                bottom: 40px;
+                                left: 28px;
+                            }
+                        }
+                }
+                .destacado-item-desktop {
+                    position: relative;
+                    width:100%;
+                    
+                    h3 {
+                        color: $white;
+                        font-size: 35px;
+                        font-weight: 700;
+                        line-height: 29px;
+                        text-align: left;
+                        text-transform: uppercase;
+                        position: absolute;
+                        bottom: 40px;
+                        left: 28px;
+                    }
+                }
+                    .btn-destacados {
+                        color: $white;
+                        font-size: 11px;
+                        font-weight: 400;
+                        text-align: left;
+                        text-decoration: underline;
+                        position: absolute;
+                        bottom: 15px;
+                        left: 30px;
+                    }
+                    img {
+                        position: relative;
+                        max-width: 100%;
+                        width: 100%;
+                    }
+                
+                .destacado-big {
+                    width: 48%;
+                    h3 {
+                        bottom: 100px;
+                        left: 50px;
+                    }
+                    .btn-destacados {
+                        bottom: 40px;
+                        left: 50px;
+                    }
+                }
+                .destacado-item-desktop-container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    width: 50%;
+                    &-two {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                }
+            }
+        }
+
+        .beneficio-home {
+            height: 150px;
+            background-color: $greentuiss;
+            color: $white;
+            padding: 23px 12px 12px;
+            position: relative;
+            text-align: center;
+            margin-bottom: 10px;
+            &.beneficio-gray {
+                background-color: $graybg2;
+                color: $greentuiss;
+                p {
+                    color: $greentuiss;
+                }
+                a {
+                    color:#707070;
+                }
+            }
+            @media screen and (min-width: $breakpoint-desktop){
+                text-align: right;
+            }
+            p {
+                color: $white;
+                font-family: $basefont;
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 18px;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+                @media screen and (min-width: $breakpoint-desktop){
+                    position: absolute;
+                    right: 52%;
+                    top: 35%;
+                }
+            }
+            .beneficio-btn {
+                color: $graybg2;
+                font-family: $basefont;
+                font-size: 11px;
+                font-weight: 300;
+                line-height: 18px;
+                text-align: left;
+                text-decoration: underline !important;
+                position: absolute;
+                right: 12px;
+                bottom: 12px;
+                @media screen and (min-width: $breakpoint-desktop){
+                    right: 50%;
+                    bottom: 30%;
+
+                }
+            }
+            .beneficios-seguro {
+                width: 150px;
+                @media screen and (min-width: $breakpoint-desktop){
+                    width: auto;
+                    position: absolute;
+                    left: 52%;
+                    top: 25%;
+                }
+            }
+            .beneficios-somos {
+                width: 95px;
+                @media screen and (min-width: $breakpoint-desktop){
+                    width: auto;
+                    position: absolute;
+                    left: 52%;
+                    bottom: 0;
+                }
+            }
+        }
+        .fullbanner {
+            .box-banner {
+                img {
+                    width: 100% !important;
+                }
+            } 
+        }
+    }
+}
+
+//Slider
+.owl-controls {
+    .owl-pagination {
+        bottom: 13px;
+        @media screen and (min-width: $breakpoint-desktop){
+            bottom: -14px;
+        }
+        .owl-page {
+            border-radius: 0%;
+            border: none;
+            background-color: $white;
+            width: 44px;
+            height: 3px;
+            @media screen and (min-width: $breakpoint-desktop){
+                width: 64px;
+                height: 4px;
+                background-color: $graybg1;
+            }
+            &.active {
+                background-color: $greentuiss;
+            } 
+        }
+    }
+} 

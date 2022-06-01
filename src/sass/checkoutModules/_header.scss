@@ -1,0 +1,15 @@
+.body-cart {
+    padding: 0;
+}
+
+.header-checkout {
+    background: $greentuiss;
+    padding: 18px;
+    @media screen and (max-width: $breakpoint-tablet) {
+        padding: 10px;
+        img {
+            width: 110px;
+        }
+    }
+}
+
